@@ -1,0 +1,26 @@
+.header {
+  display: flex;
+  max-width: 1920px;
+  padding: 16px 320px;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  background: var(--background);
+}
+
+.navigation {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navigation__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 20px;
+}
+
+.navigation__item_inactive {
+  color: var(--text-inactive-color);
+}
