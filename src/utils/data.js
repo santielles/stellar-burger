@@ -1,3 +1,10 @@
+const API_URL = 'https://api.example.com/items';
+
+export function fetchData() {
+  return fetch(API_URL)
+    .then((response) => response.json());
+}
+
 export const data = [
   {
     '_id': '60666c42cc7b410027a1a9b1',
