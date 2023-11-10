@@ -1,0 +1,28 @@
+.burgerIngredients {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  flex-shrink: 0;
+}
+
+.scrollableIngredientsList{
+  overflow-y: scroll;
+  max-height: 912px;
+}
+
+.scrollableIngredientsList::-webkit-scrollbar {
+	width: 8px;
+}
+.scrollableIngredientsList::-webkit-scrollbar-track {
+	background: var(--background-element);
+}
+.scrollableIngredientsList::-webkit-scrollbar-thumb {
+	background: var(--text-inactive-color);
+}
+
+.ingredients {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 32px;
+  column-gap: 24px;
+}
