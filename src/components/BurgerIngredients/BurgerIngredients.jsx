@@ -17,51 +17,39 @@ function BurgerIngredients({ burgerIngredientsData }) {
       <Tabs activeTab={currentTab} setActiveTab={setCurrentTab} />
 
       <div className={`${styles.scrollableIngredientsList}`}>
-        {currentTab === 'buns' && (
-          <>
-            <h2 className="text text_type_main-medium pt-10 pb-5">Булки</h2>
-            <div className={`${styles.ingredients} pl-4 pr-4`}>
-              {
-                burgerIngredientsData.map((item, index) => {
-                  if (item.type === 'bun') {
-                    return <Ingredient key={index} ingredientInfo={item} />;
-                  }
-                  return null;
-                })
+        <h2 className="text text_type_main-medium pt-10 pb-5">Булки</h2>
+        <div className={`${styles.ingredients} pl-4 pr-4`}>
+          {
+            burgerIngredientsData.map((item, index) => {
+              if (item.type === 'bun') {
+                return <Ingredient key={index} ingredientInfo={item} />;
               }
-            </div>
-          </>
-        )}
-        {currentTab === 'sauces' && (
-          <>
-            <h2 className="text text_type_main-medium pt-10 pb-5">Соусы</h2>
-            <div className={`${styles.ingredients} pl-4 pr-4`}>
-              {
-                burgerIngredientsData.map((item, index) => {
-                  if (item.type === 'sauce') {
-                    return <Ingredient key={index} ingredientInfo={item} />;
-                  }
-                  return null;
-                })
+              return null;
+            })
+          }
+        </div>
+        <h2 className="text text_type_main-medium pt-10 pb-5">Соусы</h2>
+        <div className={`${styles.ingredients} pl-4 pr-4`}>
+          {
+            burgerIngredientsData.map((item, index) => {
+              if (item.type === 'sauce') {
+                return <Ingredient key={index} ingredientInfo={item} />;
               }
-            </div>
-          </>
-        )}
-        {currentTab === 'patties' && (
-          <>
-            <h2 className="text text_type_main-medium pt-10 pb-5">Начинки</h2>
-            <div className={`${styles.ingredients} pl-4 pr-4`}>
-              {
-                burgerIngredientsData.map((item, index) => {
-                  if (item.type === 'main') {
-                    return <Ingredient key={index} ingredientInfo={item} />;
-                  }
-                  return null;
-                })
+              return null;
+            })
+          }
+        </div>
+        <h2 className="text text_type_main-medium pt-10 pb-5">Начинки</h2>
+        <div className={`${styles.ingredients} pl-4 pr-4`}>
+          {
+            burgerIngredientsData.map((item, index) => {
+              if (item.type === 'main') {
+                return <Ingredient key={index} ingredientInfo={item} />;
               }
-            </div>
-          </>
-        )}
+              return null;
+            })
+          }
+        </div>
       </div>
     </section>
   );

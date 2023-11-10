@@ -4,13 +4,18 @@ import { AppHeader } from '../AppHeader/AppHeader';
 import { MainSection } from '../MainSection/MainSection';
 
 function App() {
-  const [data, setData] = useState([]);
+  const [ingredientsList, setIngredientsList] = useState([]);
   const API_SERVER = 'https://norma.nomoreparties.space/api/ingredients';
   useEffect(() => {
     fetch(API_SERVER)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Server responded with error.');
+        }
+        return response.json();
+      })
       .then((responseJSON) => {
-        setData(responseJSON.data);
+        setIngredientsList(responseJSON.data);
       })
       .catch((error) => console.error('Can not download data from server: ', error));
   }, []);
@@ -18,7 +23,7 @@ function App() {
   return (
     <div className={`${styles.app} m-10`}>
       <AppHeader />
-      <MainSection ingredientsData={data} />
+      <MainSection ingredientsData={ingredientsList} />
     </div>
   );
 }
