@@ -1,10 +1,12 @@
 import styles from './BurgerConstructor.module.css';
 import { Button, ConstructorElement, CurrencyIcon, DragIcon, CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Modal from '../Modal/Modal';
 import PropTypes from 'prop-types';
 
-function BurgerConstructor({ burgerConstructorData }) {
+function BurgerConstructor() {
+  const burgerConstructorData = useSelector((store) => store.ingredientsListStore);
   const [showModal, setShowModal] = useState(false);
 
   function openModal() {
@@ -14,15 +16,10 @@ function BurgerConstructor({ burgerConstructorData }) {
   function closeModal() {
     setShowModal(false);
   };
-  const tempBurger = [];
-
-  for (let i = 1; i <= 5; i++) {
-    tempBurger[i - 1] = burgerConstructorData[i];
-  }
 
   return (
     <section className={`${styles.burgerConstructor} pt-25 pl-4 pr-4 pb-13`}>
-      <div>
+      {/* <div>
         <ConstructorElement
           type="top"
           isLocked={true}
@@ -57,7 +54,7 @@ function BurgerConstructor({ burgerConstructorData }) {
           price={burgerConstructorData[0].price}
           thumbnail={burgerConstructorData[0].image_mobile}
         />
-      </div>
+      </div> */}
       <div className={styles.burgerConstructor__order}>
         <div className={styles.burgerConstructor__price}>
           <p className="text text_type_digits-medium">9999</p>

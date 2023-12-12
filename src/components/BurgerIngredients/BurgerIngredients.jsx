@@ -2,12 +2,15 @@ import styles from './BurgerIngredients.module.css';
 import { Tabs } from '../Tabs/Tabs';
 import { Ingredient } from './Ingredient/Ingredient';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-function BurgerIngredients({ burgerIngredientsData }) {
+function BurgerIngredients() {
   // const newData = burgerIngredientsData.map((item) => {
   //   return { ...item, count: 1 };
   // });
+
+  const burgerIngredientsData = useSelector((store) => store.ingredientsListStore);
 
   const [currentTab, setCurrentTab] = useState('patties');
   return (
