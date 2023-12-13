@@ -3,7 +3,6 @@ import { Button, ConstructorElement, CurrencyIcon, DragIcon, CheckMarkIcon } fro
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Modal from '../Modal/Modal';
-import PropTypes from 'prop-types';
 
 function BurgerConstructor() {
   const burgerConstructorData = useSelector((store) => store.ingredientsListStore);
@@ -78,22 +77,5 @@ function BurgerConstructor() {
     </section>
   );
 }
-
-BurgerConstructor.propTypes = {
-  burgerConstructorData: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number
-  })).isRequired
-};
 
 export { BurgerConstructor };
