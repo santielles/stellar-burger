@@ -7,7 +7,6 @@ const ingredientsList = [];
 function reducerIngredientsList(state = ingredientsList, action) {
   switch (action.type) {
     case 'LOAD_INGREDIENTS':
-      console.log(action.ingredients);
       return action.ingredients;
     default:
       return state;

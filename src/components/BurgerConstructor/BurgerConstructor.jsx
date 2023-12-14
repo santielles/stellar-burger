@@ -1,12 +1,25 @@
 import styles from './BurgerConstructor.module.css';
 import { Button, ConstructorElement, CurrencyIcon, DragIcon, CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../Modal/Modal';
+import { useDrop } from 'react-dnd';
+import { burgerConstructorActions } from '../../store/actions/burgerConstructorActions';
 
 function BurgerConstructor() {
-  const burgerConstructorData = useSelector((store) => store.ingredientsListStore);
+  const burgerConstructorData = useSelector((store) => store.burgerConstructorStore);
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+
+  const [, dropRef] = useDrop(
+    {
+      accept: 'ingredient',
+      drop(draggableIngredientInfo) {
+        console.log(draggableIngredientInfo);
+        dispatch(burgerConstructorActions(draggableIngredientInfo));
+      }
+    }
+  );
 
   function openModal() {
     setShowModal(true);
@@ -17,7 +30,21 @@ function BurgerConstructor() {
   };
 
   return (
-    <section className={`${styles.burgerConstructor} pt-25 pl-4 pr-4 pb-13`}>
+    <section className={`${styles.burgerConstructor} pt-25 pl-4 pr-4 pb-13`} ref={dropRef}>
+      <div>
+        {burgerConstructorData.length != 0 && burgerConstructorData.map((el) => {
+          return (
+            <ConstructorElement
+              key={el._id}
+              type="main"
+              isLocked={false}
+              text={el.name}
+              price={el.price}
+              thumbnail={el.image_mobile}
+            />
+          );
+        })}
+      </div>
       {/* <div>
         <ConstructorElement
           type="top"
