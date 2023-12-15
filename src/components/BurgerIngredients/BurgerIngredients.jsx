@@ -5,10 +5,6 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 function BurgerIngredients() {
-  // const newData = burgerIngredientsData.map((item) => {
-  //   return { ...item, count: 1 };
-  // });
-
   const burgerIngredientsData = useSelector((store) => store.ingredientsListStore);
 
   const [currentTab, setCurrentTab] = useState('patties');
@@ -22,9 +18,9 @@ function BurgerIngredients() {
         <h2 className="text text_type_main-medium pt-10 pb-5">Булки</h2>
         <div className={`${styles.ingredients} pl-4 pr-4`}>
           {
-            burgerIngredientsData.map((item, index) => {
+            burgerIngredientsData.map((item) => {
               if (item.type === 'bun') {
-                return <Ingredient key={index} ingredientInfo={item} />;
+                return <Ingredient key={item._id} ingredientInfo={item} />;
               }
               return null;
             })
@@ -33,9 +29,9 @@ function BurgerIngredients() {
         <h2 className="text text_type_main-medium pt-10 pb-5">Соусы</h2>
         <div className={`${styles.ingredients} pl-4 pr-4`}>
           {
-            burgerIngredientsData.map((item, index) => {
+            burgerIngredientsData.map((item) => {
               if (item.type === 'sauce') {
-                return <Ingredient key={index} ingredientInfo={item} />;
+                return <Ingredient key={item._id} ingredientInfo={item} />;
               }
               return null;
             })
@@ -44,9 +40,9 @@ function BurgerIngredients() {
         <h2 className="text text_type_main-medium pt-10 pb-5">Начинки</h2>
         <div className={`${styles.ingredients} pl-4 pr-4`}>
           {
-            burgerIngredientsData.map((item, index) => {
+            burgerIngredientsData.map((item) => {
               if (item.type === 'main') {
-                return <Ingredient key={index} ingredientInfo={item} />;
+                return <Ingredient key={item._id} ingredientInfo={item} />;
               }
               return null;
             })

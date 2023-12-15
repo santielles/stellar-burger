@@ -15,7 +15,7 @@ function Ingredient({ ingredientInfo }) {
   // item: ingredientInfo это то что будет перетаскиваться
   const [, dragRef] = useDrag(
     {
-      // тип чтобы понимать куда можно перетаскивать объект,
+      // type чтобы понимать куда можно перетаскивать объект,
       // то есть в поле, куда мы будем перетаскивать мы можем сказать что принимаем только объекты определённого типа
       type: 'ingredient',
       // какую информацию мы передаём вместе с объектом который перетаскиваем
@@ -40,7 +40,7 @@ function Ingredient({ ingredientInfo }) {
           <CurrencyIcon type="primary" />
         </div>
         <h3 className={`text text_type_main-default ${styles.ingredient__title}`}>{ingredientInfo.name}</h3 >
-        <p className={`${styles.count} text text_type_digits-default`}>1</p>
+        {ingredientInfo.count != 0 && <p className={`${styles.count} text text_type_digits-default`}>{ingredientInfo.count}</p>}
       </div>
       {
         showModal &&

@@ -7,4 +7,12 @@ function actionLoadIngredients(ingredientsList) {
   };
 };
 
-export { actionLoadIngredients };
+// этот action мы используем для того чтобы увеличть число над ингридиентом в BurgerIngredients в "Ingredients"
+function actionIncreaseCount(ingredientID) {
+  return {
+    type: 'INCREASE_INGREDIENTS_COUNT',
+    ingredientID: ingredientID
+  };
+};
+
+export { actionLoadIngredients, actionIncreaseCount };

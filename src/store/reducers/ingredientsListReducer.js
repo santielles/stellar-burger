@@ -8,6 +8,19 @@ function reducerIngredientsList(state = ingredientsList, action) {
   switch (action.type) {
     case 'LOAD_INGREDIENTS':
       return action.ingredients;
+    case 'INCREASE_INGREDIENTS_COUNT':
+      // здесь мы прогоняем наш state(массив со списком ингредиентов) через map и получаем каждый ингредиент
+      return state.map((ingredient) => {
+        // action.ingredientID - приходит из action "actionIncreaseCount" который указан в бургер конструкторе в диспетчере
+        // dispatch(actionIncreaseCount(draggableIngredientInfo._id)) - где "draggableIngredientInfo._id" это наши перетаскиваемые
+        // ингредиенты. То есть мы проверяем, если наш ингредиент из стора с полем id равно уже дропнутому ингредиенту с такой же id
+        // то тогда мы берем наш ингредиент и в нем изменяем поле count на текущее значение count но уже +1
+        if (ingredient._id === action.ingredientID) {
+          return { ...ingredient, count: ingredient.count + 1 };
+        }
+        // и возвращаемый преобразованный ингредиент
+        return ingredient;
+      });
     default:
       return state;
   }

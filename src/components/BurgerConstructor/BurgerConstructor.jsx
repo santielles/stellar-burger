@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../Modal/Modal';
 import { useDrop } from 'react-dnd';
 import { burgerConstructorActions } from '../../store/actions/burgerConstructorActions';
+import { actionIncreaseCount } from '../../store/actions/ingredientsListActions';
 
 function BurgerConstructor() {
   const burgerConstructorData = useSelector((store) => store.burgerConstructorStore);
@@ -14,9 +15,14 @@ function BurgerConstructor() {
   const [, dropRef] = useDrop(
     {
       accept: 'ingredient',
+      // draggableIngredientInfo - та самая "информация" из компонента "Ingredients" из хука useDrag из item:
+      //     type: 'ingredient',
+      //     item: ingredientInfo
+      // которую мы передали чтобы перетащить
       drop(draggableIngredientInfo) {
-        console.log(draggableIngredientInfo);
         dispatch(burgerConstructorActions(draggableIngredientInfo));
+        // draggableIngredientInfo._id - из перетаскиваемого объекта достаем поле id
+        dispatch(actionIncreaseCount(draggableIngredientInfo._id));
       }
     }
   );

@@ -32,12 +32,13 @@ function App() {
       })
       // затем
       .then((responseJSON) => {
-        // Преобразование массива в объект с ключами _id
-        const transformedData = responseJSON.data.reduce((acc, item) => {
-          acc[item._id] = item;
-          acc[item._id].count = 0;
-          return acc;
-        }, {});
+        // Добавляем 'count' к каждому ингредиенту
+        const dataWithCount = responseJSON.data.map((item) => (
+          {
+            ...item,
+            count: 0
+          }
+        ));
 
         // берем ответ (json) и указываем его в качестве аргумента в функцию actionLoadIngredients
         // т.е. мы сначала вызываем функцию actionLoadIngredients, которая по сути выглядит так:
@@ -45,8 +46,7 @@ function App() {
         //    ingredients: ingredientsList
         // где ingredientsList это наш аргумент responseJSON.data
         // и говорим нашему диспетчеру передать этот объект (action) в редьюсер
-        console.log('sadasd', transformedData);
-        dispatch(actionLoadIngredients(responseJSON.data));
+        dispatch(actionLoadIngredients(dataWithCount));
       })
       // если при взаимодействии с сервером что-то пошло не так, пишем ошибку в консоль
       .catch((error) => console.error('Can not download data from server: ', error));
