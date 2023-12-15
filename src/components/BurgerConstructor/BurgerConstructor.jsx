@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../Modal/Modal';
 import { useDrop } from 'react-dnd';
-import { burgerConstructorActions } from '../../store/actions/burgerConstructorActions';
+import { actionMakeBurger, actionRemoveIngredient } from '../../store/actions/burgerConstructorActions';
 import { actionIncreaseCount } from '../../store/actions/ingredientsListActions';
 
 function BurgerConstructor() {
@@ -20,7 +20,7 @@ function BurgerConstructor() {
       //     item: ingredientInfo
       // которую мы передали чтобы перетащить
       drop(draggableIngredientInfo) {
-        dispatch(burgerConstructorActions(draggableIngredientInfo));
+        dispatch(actionMakeBurger(draggableIngredientInfo));
         // draggableIngredientInfo._id - из перетаскиваемого объекта достаем поле id
         dispatch(actionIncreaseCount(draggableIngredientInfo._id));
       }
@@ -38,15 +38,18 @@ function BurgerConstructor() {
   return (
     <section className={`${styles.burgerConstructor} pt-25 pl-4 pr-4 pb-13`} ref={dropRef}>
       <div>
-        {burgerConstructorData.length != 0 && burgerConstructorData.map((el) => {
+        {burgerConstructorData.length != 0 && burgerConstructorData.map((el, index) => {
           return (
             <ConstructorElement
-              key={el._id}
+              key={index}
               type="main"
               isLocked={false}
               text={el.name}
               price={el.price}
               thumbnail={el.image_mobile}
+              // обработка события нажатия на иконку корзины (удаления перескиваемого ингредиента)
+              handleClose={() => dispatch(actionRemoveIngredient(index))}
+
             />
           );
         })}
