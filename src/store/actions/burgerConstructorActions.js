@@ -1,4 +1,4 @@
-function actionMakeBurger(ingredientsList) {
+function actionAddIngredientToBurger(ingredientsList) {
   return {
     type: 'MAKE_BURGER',
     ingredients: ingredientsList
@@ -12,4 +12,4 @@ function actionRemoveIngredient(ingredientIndex) {
   };
 };
 
-export { actionMakeBurger, actionRemoveIngredient };
+export { actionAddIngredientToBurger, actionRemoveIngredient };

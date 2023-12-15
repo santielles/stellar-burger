@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../Modal/Modal';
 import { useDrop } from 'react-dnd';
-import { actionMakeBurger, actionRemoveIngredient } from '../../store/actions/burgerConstructorActions';
-import { actionIncreaseCount } from '../../store/actions/ingredientsListActions';
+import { actionAddIngredientToBurger, actionRemoveIngredient } from '../../store/actions/burgerConstructorActions';
+import { actionIncreaseCount, actionDecreaseCount } from '../../store/actions/ingredientsListActions';
 
 function BurgerConstructor() {
   const burgerConstructorData = useSelector((store) => store.burgerConstructorStore);
@@ -20,7 +20,7 @@ function BurgerConstructor() {
       //     item: ingredientInfo
       // которую мы передали чтобы перетащить
       drop(draggableIngredientInfo) {
-        dispatch(actionMakeBurger(draggableIngredientInfo));
+        dispatch(actionAddIngredientToBurger(draggableIngredientInfo));
         // draggableIngredientInfo._id - из перетаскиваемого объекта достаем поле id
         dispatch(actionIncreaseCount(draggableIngredientInfo._id));
       }
@@ -48,8 +48,10 @@ function BurgerConstructor() {
               price={el.price}
               thumbnail={el.image_mobile}
               // обработка события нажатия на иконку корзины (удаления перескиваемого ингредиента)
-              handleClose={() => dispatch(actionRemoveIngredient(index))}
-
+              handleClose={() => {
+                dispatch(actionRemoveIngredient(index));
+                dispatch(actionDecreaseCount(el._id));
+              }}
             />
           );
         })}

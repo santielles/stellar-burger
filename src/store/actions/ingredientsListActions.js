@@ -15,4 +15,11 @@ function actionIncreaseCount(ingredientID) {
   };
 };
 
-export { actionLoadIngredients, actionIncreaseCount };
+function actionDecreaseCount(ingredientID) {
+  return {
+    type: 'DECREASE_INGREDIENTS_COUNT',
+    ingredientID: ingredientID
+  };
+};
+
+export { actionLoadIngredients, actionIncreaseCount, actionDecreaseCount };

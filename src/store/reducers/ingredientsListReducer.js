@@ -21,6 +21,19 @@ function reducerIngredientsList(state = ingredientsList, action) {
         // и возвращаемый преобразованный ингредиент
         return ingredient;
       });
+    case 'DECREASE_INGREDIENTS_COUNT':
+      // здесь мы прогоняем наш state(массив со списком ингредиентов) через map и получаем каждый ингредиент
+      return state.map((ingredient) => {
+        // action.ingredientID - приходит из action "actionDecreaseCount" который указан в бургер конструкторе в диспетчере
+        // dispatch(actionDecreaseCount(actionDicreaseCount(el._id))) - где "el._id" это наши перетаскиваемые
+        // ингредиенты. То есть мы проверяем, если наш ингредиент из стора с полем id равно уже дропнутому ингредиенту с такой же id
+        // то тогда мы берем наш ингредиент и в нем изменяем поле count на текущее значение count но уже -1, что равно его удалению
+        if (ingredient._id === action.ingredientID) {
+          return { ...ingredient, count: ingredient.count - 1 };
+        }
+        // и возвращаемый преобразованный ингредиент
+        return ingredient;
+      });
     default:
       return state;
   }
