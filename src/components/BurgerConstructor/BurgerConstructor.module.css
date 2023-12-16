@@ -9,10 +9,10 @@
 .scrollableConstructorList {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   gap: 16px;
   overflow-y: scroll;
-  height: calc(100vh - 60%);
+  height: 40vh;
 }
 
 .scrollableConstructorList::-webkit-scrollbar {
@@ -42,7 +42,7 @@
   padding-top: 40px;
 }
 
-.burgerConstructor__price{
+.burgerConstructor__price {
   display: flex;
   gap: 8px;
 }

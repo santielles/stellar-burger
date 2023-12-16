@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 function BurgerIngredients() {
   const burgerIngredientsData = useSelector((store) => store.ingredientsListStore);
 
-  const [currentTab, setCurrentTab] = useState('patties');
+  const [currentTab, setCurrentTab] = useState('buns');
   return (
     <section className={styles.burgerIngredients}>
       <h1 className="text text_type_main-large pt-10 pb-5">Соберите бургер </h1>
