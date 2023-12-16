@@ -31,11 +31,10 @@ function sendOrder(ingredientsIDs) {
   };
 };
 
-function actionSaveOrderResponse(orderID) {
-  console.log('orderID.order.number', orderID.order.number);
+function actionSaveOrderResponse(orderData) {
   return {
     type: 'SAVE_ORDER',
-    orderID: orderID.order.number
+    orderData: orderData
   };
 };
 

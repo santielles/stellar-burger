@@ -1,12 +1,20 @@
-const orderID = -1;
+// Пример orderData:
+// {
+//   "success": true,
+//   "name": "Антарианский spicy краторный space бургер",
+//   "order": {
+//       "number": 5373
+//   }
+// }
+const orderData = {};
 
-function reducerOrderID(state = orderID, action) {
+function reducerOrderData(state = orderData, action) {
   switch (action.type) {
     case 'SAVE_ORDER':
-      return action.orderID;
+      return action.orderData;
     default:
       return state;
   }
 };
 
-export { reducerOrderID };
+export { reducerOrderData };

@@ -12,7 +12,7 @@ import { DraggableIngredient } from './DraggableIngredient/DraggableIngredient';
 function BurgerConstructor() {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-  const orderID = useSelector((store) => store.orderStore);
+  const orderData = useSelector((store) => store.orderDataStore);
   const burgerConstructorData = useSelector((store) => store.burgerConstructorStore);
   const burgerConstructorDataIDs = burgerConstructorData.map((ingredient) => ingredient._id);
   // Проверяем, есть ли в конструкторе булочка
@@ -141,9 +141,9 @@ function BurgerConstructor() {
           Оформить заказ
         </Button>
         {
-          showModal && orderID != -1 && (
+          showModal && Object.keys(orderData).length > 0 && (
             <Modal onClose={closeModal}>
-              <p className="text text_type_digits-large mt-30 mb-8">{orderID}</p>
+              <p className="text text_type_digits-large mt-30 mb-8">{orderData.order.number}</p>
               <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
               <CheckMarkIcon type="primary" />
               <p className="text text_type_main-default mt-15 mb-2">Ваш заказ начали готовить</p>
