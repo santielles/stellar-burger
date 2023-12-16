@@ -12,4 +12,11 @@ function actionRemoveIngredient(ingredientIndex) {
   };
 };
 
-export { actionAddIngredientToBurger, actionRemoveIngredient };
+function actionReorderIngredients(fromIndex, toIndex) {
+  return {
+    type: 'REORDER_INGREDIENTS',
+    payload: { fromIndex, toIndex }
+  };
+};
+
+export { actionAddIngredientToBurger, actionRemoveIngredient, actionReorderIngredients };

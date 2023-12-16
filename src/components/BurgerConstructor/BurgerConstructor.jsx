@@ -1,12 +1,13 @@
 import styles from './BurgerConstructor.module.css';
-import { Button, ConstructorElement, CurrencyIcon, DragIcon, CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, ConstructorElement, CurrencyIcon, CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../Modal/Modal';
 import { useDrop } from 'react-dnd';
-import { actionAddIngredientToBurger, actionRemoveIngredient } from '../../store/actions/burgerConstructorActions';
+import { actionAddIngredientToBurger } from '../../store/actions/burgerConstructorActions';
 import { actionIncreaseCount, actionDecreaseCount } from '../../store/actions/ingredientsListActions';
 import { sendOrder } from '../../store/actions/orderActions';
+import { DraggableIngredient } from './DraggableIngredient/DraggableIngredient';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -100,19 +101,11 @@ function BurgerConstructor() {
             {burgerConstructorData.map((ingredient, index) => {
               if (ingredient.type !== 'bun') {
                 return (
-                  <div key={index} className={styles.burgerConstructorItem}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                      index={index}
-                      text={ingredient.name}
-                      price={ingredient.price}
-                      thumbnail={ingredient.image_mobile}
-                      handleClose={() => {
-                        dispatch(actionRemoveIngredient(index));
-                        dispatch(actionDecreaseCount(ingredient._id));
-                      }}
-                    />
-                  </div>
+                  <DraggableIngredient
+                    key={index}
+                    index={index}
+                    ingredient={ingredient}
+                  />
                 );
               }
             })}

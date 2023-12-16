@@ -19,6 +19,15 @@ function reducerBurgerConstructor(state = burgerConstructor, action) {
         ...state.slice(0, action.ingredientIndex),
         ...state.slice(action.ingredientIndex + 1)
       ];
+    case 'REORDER_INGREDIENTS':
+      const { fromIndex, toIndex } = action.payload;
+      const item = state[fromIndex];
+      const newState = [...state];
+      // Удаляем ингредиет с его текущей позиции
+      newState.splice(fromIndex, 1);
+      // Вставляем ингредиет на новую позицию
+      newState.splice(toIndex, 0, item);
+      return newState;
     default:
       return state;
   }

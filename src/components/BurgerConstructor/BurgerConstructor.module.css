@@ -27,13 +27,6 @@
   background: var(--text-inactive-color);
 }
 
-.burgerConstructorItem {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding-right: 8px;
-}
-
 .burgerConstructor__order {
   display: flex;
   align-items: center;
