@@ -16,7 +16,11 @@ function reducerIngredientsList(state = ingredientsList, action) {
         // ингредиенты. То есть мы проверяем, если наш ингредиент из стора с полем id равно уже дропнутому ингредиенту с такой же id
         // то тогда мы берем наш ингредиент и в нем изменяем поле count на текущее значение count но уже +1
         if (ingredient._id === action.ingredientID) {
-          return { ...ingredient, count: ingredient.count + 1 };
+          if (ingredient.type === 'bun') {
+            return { ...ingredient, count: ingredient.count + 2 };
+          } else {
+            return { ...ingredient, count: ingredient.count + 1 };
+          }
         }
         // и возвращаемый преобразованный ингредиент
         return ingredient;
@@ -29,7 +33,11 @@ function reducerIngredientsList(state = ingredientsList, action) {
         // ингредиенты. То есть мы проверяем, если наш ингредиент из стора с полем id равно уже дропнутому ингредиенту с такой же id
         // то тогда мы берем наш ингредиент и в нем изменяем поле count на текущее значение count но уже -1, что равно его удалению
         if (ingredient._id === action.ingredientID) {
-          return { ...ingredient, count: ingredient.count - 1 };
+          if (ingredient.type === 'bun') {
+            return { ...ingredient, count: 0 };
+          } else {
+            return { ...ingredient, count: ingredient.count - 1 };
+          }
         }
         // и возвращаемый преобразованный ингредиент
         return ingredient;

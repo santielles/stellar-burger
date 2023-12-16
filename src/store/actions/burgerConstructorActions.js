@@ -1,7 +1,7 @@
-function actionAddIngredientToBurger(ingredientsList) {
+function actionAddIngredientToBurger(ingredient) {
   return {
-    type: 'MAKE_BURGER',
-    ingredients: ingredientsList
+    type: 'ADD_INGREDIENT',
+    ingredient: ingredient
   };
 };
 

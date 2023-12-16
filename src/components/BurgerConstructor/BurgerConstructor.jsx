@@ -8,21 +8,48 @@ import { actionAddIngredientToBurger, actionRemoveIngredient } from '../../store
 import { actionIncreaseCount, actionDecreaseCount } from '../../store/actions/ingredientsListActions';
 
 function BurgerConstructor() {
-  const burgerConstructorData = useSelector((store) => store.burgerConstructorStore);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const burgerConstructorData = useSelector((store) => store.burgerConstructorStore);
+  // Находим булку в списке ингредиентов
+  const bun = burgerConstructorData.find((ingredient) => ingredient.type === 'bun');
 
+  // Использование хука useDrop из библиотеки react-dnd для реализации функционала перетаскивания
   const [, dropRef] = useDrop(
     {
+      // Указываем, что этот компонент может принимать элементы с типом 'ingredient'
       accept: 'ingredient',
       // draggableIngredientInfo - та самая "информация" из компонента "Ingredients" из хука useDrag из item:
       //     type: 'ingredient',
       //     item: ingredientInfo
       // которую мы передали чтобы перетащить
+      //
+      // Функция drop будет вызвана, когда элемент типа 'ingredient' будет отпущен над этим компонентом
       drop(draggableIngredientInfo) {
-        dispatch(actionAddIngredientToBurger(draggableIngredientInfo));
-        // draggableIngredientInfo._id - из перетаскиваемого объекта достаем поле id
-        dispatch(actionIncreaseCount(draggableIngredientInfo._id));
+        // Вспомогательная функция для добавления ингредиента в конструктор бургера
+        // и увеличения счетчика этого ингредиента.
+        function addIngredient() {
+          // Диспатчим action добавления ингредиента в конструктор бургера
+          dispatch(actionAddIngredientToBurger(draggableIngredientInfo));
+          // Диспатчим action увеличения счетчика для данного ингредиента
+          dispatch(actionIncreaseCount(draggableIngredientInfo._id));
+        };
+        // Проверяем, является ли перетаскиваемый ингредиент булочкой
+        if (draggableIngredientInfo.type === 'bun') {
+          // Ищем в данных конструктора бургера уже существующую булочку
+          const existingBun = burgerConstructorData.find((ingredient) => ingredient.type === 'bun');
+          // Если булочка уже есть в конструкторе,
+          if (existingBun) {
+            // то уменьшаем счетчик для этой булочки.
+            dispatch(actionDecreaseCount(existingBun._id));
+          }
+          // Добавляем новую булочку в конструктор и увеличиваем ее счетчик.
+          addIngredient();
+        } else {
+          // Если перетаскиваемый ингредиент не булочка,
+          // просто добавляем его в конструктор и увеличиваем счетчик.
+          addIngredient();
+        }
       }
     }
   );
@@ -37,61 +64,53 @@ function BurgerConstructor() {
 
   return (
     <section className={`${styles.burgerConstructor} pt-25 pl-4 pr-4 pb-13`} ref={dropRef}>
-      <div>
-        {burgerConstructorData.length != 0 && burgerConstructorData.map((el, index) => {
-          return (
-            <ConstructorElement
-              key={index}
-              type="main"
-              isLocked={false}
-              text={el.name}
-              price={el.price}
-              thumbnail={el.image_mobile}
-              // обработка события нажатия на иконку корзины (удаления перескиваемого ингредиента)
-              handleClose={() => {
-                dispatch(actionRemoveIngredient(index));
-                dispatch(actionDecreaseCount(el._id));
-              }}
-            />
-          );
-        })}
-      </div>
-      {/* <div>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={`${burgerConstructorData[0].name} (верх)`}
-          price={burgerConstructorData[0].price}
-          thumbnail={burgerConstructorData[0].image_mobile}
-        />
-      </div>
-      <div className={styles.scrollableConstructorList}>
-        {
-          tempBurger.map((ingredient) => {
-            {
-              return (
-                <div key={ingredient._id} className={styles.burgerConstructorItem}>
-                  <DragIcon type="primary" />
-                  <ConstructorElement
-                    text={ingredient.name}
-                    price={ingredient.price}
-                    thumbnail={ingredient.image_mobile}
-                  />
-                </div>
-              );
-            }
-          })
-        }
-      </div>
-      <div>
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={`${burgerConstructorData[0].name} (низ)`}
-          price={burgerConstructorData[0].price}
-          thumbnail={burgerConstructorData[0].image_mobile}
-        />
-      </div> */}
+      {bun &&
+        <div>
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={`${bun.name} (верх)`}
+            price={bun.price}
+            thumbnail={bun.image_mobile}
+          />
+        </div>
+      }
+      {
+        burgerConstructorData.some((ingredient) => ingredient.type !== 'bun') && (
+          <div className={styles.scrollableConstructorList}>
+            {burgerConstructorData.map((ingredient, index) => {
+              if (ingredient.type !== 'bun') {
+                return (
+                  <div key={index} className={styles.burgerConstructorItem}>
+                    <DragIcon type="primary" />
+                    <ConstructorElement
+                      index={index}
+                      text={ingredient.name}
+                      price={ingredient.price}
+                      thumbnail={ingredient.image_mobile}
+                      handleClose={() => {
+                        dispatch(actionRemoveIngredient(index));
+                        dispatch(actionDecreaseCount(ingredient._id));
+                      }}
+                    />
+                  </div>
+                );
+              }
+            })}
+          </div>
+        )
+      }
+      {bun &&
+        <div>
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={`${bun.name} (низ)`}
+            price={bun.price}
+            thumbnail={bun.image_mobile}
+          />
+        </div>
+      }
       <div className={styles.burgerConstructor__order}>
         <div className={styles.burgerConstructor__price}>
           <p className="text text_type_digits-medium">9999</p>
