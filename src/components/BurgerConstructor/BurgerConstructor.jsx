@@ -93,7 +93,8 @@ function BurgerConstructor() {
             price={hasBun.price}
             thumbnail={hasBun.image_mobile}
           />
-        </div>
+        </div> ||
+        <h1>{'{ Перетащите булочку }'}</h1>
       }
       {
         burgerConstructorData.some((ingredient) => ingredient.type !== 'bun') && (
@@ -110,7 +111,8 @@ function BurgerConstructor() {
               }
             })}
           </div>
-        )
+        ) ||
+        <h1>{'{ Перетащите ингредиенты }'}</h1>
       }
       {hasBun &&
         <div>
@@ -121,7 +123,8 @@ function BurgerConstructor() {
             price={hasBun.price}
             thumbnail={hasBun.image_mobile}
           />
-        </div>
+        </div> ||
+        <h1>{'{ Перетащите булочку }'}</h1>
       }
       <div className={styles.burgerConstructor__order}>
         <div className={styles.burgerConstructor__price}>
