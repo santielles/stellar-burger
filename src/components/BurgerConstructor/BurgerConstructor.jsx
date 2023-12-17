@@ -1,5 +1,5 @@
 import styles from './BurgerConstructor.module.css';
-import { Button, ConstructorElement, CurrencyIcon, CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../Modal/Modal';
@@ -8,11 +8,11 @@ import { addIngredientToBurgerAction } from '../../store/actions/burgerConstruct
 import { increaseCountAction, decreaseCountAction } from '../../store/actions/ingredientsListActions';
 import { sendOrder } from '../../store/actions/orderActions';
 import { DraggableIngredient } from './DraggableIngredient/DraggableIngredient';
+import OrderDetails from './OrderDetails/OrderDetails';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-  const orderData = useSelector((store) => store.orderDataStore);
   const burgerConstructorData = useSelector((store) => store.burgerConstructorStore);
   const burgerConstructorDataIDs = burgerConstructorData.map((ingredient) => ingredient._id);
   // Проверяем, есть ли в конструкторе булочка
@@ -144,13 +144,9 @@ function BurgerConstructor() {
           Оформить заказ
         </Button>
         {
-          showModal && Object.keys(orderData).length > 0 && (
+          showModal && (
             <Modal onClose={closeModal}>
-              <p className="text text_type_digits-large mt-30 mb-8">{orderData.order.number}</p>
-              <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
-              <CheckMarkIcon type="primary" />
-              <p className="text text_type_main-default mt-15 mb-2">Ваш заказ начали готовить</p>
-              <p className="text text_type_main-default text_color_inactive mb-30">Дождитесь готовности на орбитальной станции</p>
+              <OrderDetails />
             </Modal>
           )
         }

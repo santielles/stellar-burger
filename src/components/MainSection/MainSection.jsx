@@ -24,7 +24,7 @@ function MainSection() {
     return (
       // - отобрази сообщение о том что данные еще подгружаются.
       <div className={styles.centered_text}>
-        <h1>Loading ingredients list from server...</h1>
+        <h1>Подождите пока данные загружается с сервера...</h1>
       </div>
     );
   }
