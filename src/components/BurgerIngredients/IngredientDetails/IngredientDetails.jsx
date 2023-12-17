@@ -5,7 +5,7 @@ function IngredientDetails({ modalIngredientInfo }) {
   return (
     <div className="nutritions">
       <p className="text text text_type_main-medium mt-10">Детали ингредиента</p>
-      <img className={`${styles.image_popup} mb-4`} src={modalIngredientInfo.image} alt={modalIngredientInfo.name} />
+      <img className={`${styles.image_popup} mb-4`} src={modalIngredientInfo.image_large} alt={modalIngredientInfo.name} />
       <p className="text text_type_main-default">{modalIngredientInfo.name}</p>
       <div className={`${styles.nutritions} mt-8 mb-15`}>
         <div>
