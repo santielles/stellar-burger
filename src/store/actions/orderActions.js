@@ -1,4 +1,5 @@
 import { API_SERVER_ORDER, SAVE_ORDER } from '../../utils/constants';
+import { checkAPIResponse } from '../../utils/utils';
 
 // Async thunk action
 function sendOrder(ingredientsIDs) {
@@ -15,10 +16,7 @@ function sendOrder(ingredientsIDs) {
       });
 
       // Проверяем, успешно ли выполнен запрос
-      if (!response.ok) {
-        // Если нет, выводим ошибку
-        throw new Error('Ошибка отправки заказа');
-      }
+      checkAPIResponse(response);
 
       // Преобразуем ответ от сервера из формата JSON в JavaScript-объект
       const responseData = await response.json();

@@ -1,6 +1,5 @@
-// Это action, и это объект, который передает данные из вашего приложения в store.
-
 import { API_SERVER_INGREDIENTS, LOAD_INGREDIENTS, INCREASE_INGREDIENTS_COUNT, DECREASE_INGREDIENTS_COUNT } from '../../utils/constants';
+import { checkAPIResponse } from '../../utils/utils';
 
 // Действия (actions) отправляются (dispatched) в store с помощью функций.
 function loadIngredientsAction(ingredientsList) {
@@ -19,10 +18,7 @@ function fetchIngredients() {
       const response = await fetch(API_SERVER_INGREDIENTS);
 
       // Проверяем, успешно ли выполнен запрос
-      if (!response.ok) {
-        // Если нет, выводим ошибку
-        throw new Error('Ошибка получения списка ингредиентов с сервера.');
-      }
+      checkAPIResponse(response);
 
       // Преобразуем ответ от сервера из формата JSON в JavaScript-объект
       const responseJSON = await response.json();
