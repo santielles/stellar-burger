@@ -8,7 +8,7 @@
 // }
 const orderData = {};
 
-function reducerOrderData(state = orderData, action) {
+function orderReducer(state = orderData, action) {
   switch (action.type) {
     case 'SAVE_ORDER':
       return action.orderData;
@@ -17,4 +17,4 @@ function reducerOrderData(state = orderData, action) {
   }
 };
 
-export { reducerOrderData };
+export { orderReducer };

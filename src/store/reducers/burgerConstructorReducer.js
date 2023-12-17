@@ -1,6 +1,6 @@
 const burgerConstructor = [];
 
-function reducerBurgerConstructor(state = burgerConstructor, action) {
+function burgerConstructorReducer(state = burgerConstructor, action) {
   switch (action.type) {
     case 'ADD_INGREDIENT':
       // Проверяем, является ли ингредиент булочкой
@@ -33,4 +33,4 @@ function reducerBurgerConstructor(state = burgerConstructor, action) {
   }
 };
 
-export { reducerBurgerConstructor };
+export { burgerConstructorReducer };

@@ -4,7 +4,7 @@ const ingredientsList = [];
 // Он принимает в качестве аргументов - стор (ingredientsList) и действие/объект (action)
 // т.е. то что диспетчер нам передает и будет в action
 // а передает он объект где будет type и responseJSON.data (список наших ингредиентов)
-function reducerIngredientsList(state = ingredientsList, action) {
+function ingredientsListReducer(state = ingredientsList, action) {
   switch (action.type) {
     case 'LOAD_INGREDIENTS':
       return action.ingredients;
@@ -47,4 +47,4 @@ function reducerIngredientsList(state = ingredientsList, action) {
   }
 };
 
-export { reducerIngredientsList };
+export { ingredientsListReducer };
