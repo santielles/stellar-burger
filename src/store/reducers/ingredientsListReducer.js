@@ -1,3 +1,4 @@
+import { LOAD_INGREDIENTS, INCREASE_INGREDIENTS_COUNT, DECREASE_INGREDIENTS_COUNT } from '../../utils/constants';
 const ingredientsList = [];
 
 // Функция reducerIngredientsList наш редьюсер со списком ингредиентов
@@ -6,9 +7,9 @@ const ingredientsList = [];
 // а передает он объект где будет type и responseJSON.data (список наших ингредиентов)
 function ingredientsListReducer(state = ingredientsList, action) {
   switch (action.type) {
-    case 'LOAD_INGREDIENTS':
+    case LOAD_INGREDIENTS:
       return action.ingredients;
-    case 'INCREASE_INGREDIENTS_COUNT':
+    case INCREASE_INGREDIENTS_COUNT:
       // здесь мы прогоняем наш state(массив со списком ингредиентов) через map и получаем каждый ингредиент
       return state.map((ingredient) => {
         // action.ingredientID - приходит из action "actionIncreaseCount" который указан в бургер конструкторе в диспетчере
@@ -25,7 +26,7 @@ function ingredientsListReducer(state = ingredientsList, action) {
         // и возвращаемый преобразованный ингредиент
         return ingredient;
       });
-    case 'DECREASE_INGREDIENTS_COUNT':
+    case DECREASE_INGREDIENTS_COUNT:
       // здесь мы прогоняем наш state(массив со списком ингредиентов) через map и получаем каждый ингредиент
       return state.map((ingredient) => {
         // action.ingredientID - приходит из action "actionDecreaseCount" который указан в бургер конструкторе в диспетчере

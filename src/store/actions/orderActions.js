@@ -1,4 +1,4 @@
-import { API_SERVER_ORDER } from '../../utils/constants';
+import { API_SERVER_ORDER, SAVE_ORDER } from '../../utils/constants';
 
 // Async thunk action
 function sendOrder(ingredientsIDs) {
@@ -33,7 +33,7 @@ function sendOrder(ingredientsIDs) {
 
 function actionSaveOrderResponse(orderData) {
   return {
-    type: 'SAVE_ORDER',
+    type: SAVE_ORDER,
     orderData: orderData
   };
 };

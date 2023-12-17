@@ -1,11 +1,11 @@
 // Это action, и это объект, который передает данные из вашего приложения в store.
 
-import { API_SERVER_INGREDIENTS } from '../../utils/constants';
+import { API_SERVER_INGREDIENTS, LOAD_INGREDIENTS, INCREASE_INGREDIENTS_COUNT, DECREASE_INGREDIENTS_COUNT } from '../../utils/constants';
 
 // Действия (actions) отправляются (dispatched) в store с помощью функций.
 function actionLoadIngredients(ingredientsList) {
   return {
-    type: 'LOAD_INGREDIENTS',
+    type: LOAD_INGREDIENTS,
     ingredients: ingredientsList
   };
 };
@@ -44,14 +44,14 @@ function fetchIngredients() {
 // этот action мы используем для того чтобы увеличть число над ингридиентом в BurgerIngredients в "Ingredients"
 function actionIncreaseCount(ingredientID) {
   return {
-    type: 'INCREASE_INGREDIENTS_COUNT',
+    type: INCREASE_INGREDIENTS_COUNT,
     ingredientID: ingredientID
   };
 };
 
 function actionDecreaseCount(ingredientID) {
   return {
-    type: 'DECREASE_INGREDIENTS_COUNT',
+    type: DECREASE_INGREDIENTS_COUNT,
     ingredientID: ingredientID
   };
 };
