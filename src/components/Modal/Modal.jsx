@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Overlay from '../Overlay/Overlay';
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { modalType } from '../../utils/types';
 
 const modalElement = document.getElementById('modal');
 
@@ -41,10 +41,6 @@ function Modal({ children, onClose }) {
   );
 }
 
-
-Modal.propTypes = {
-  children: PropTypes.node,
-  onClose: PropTypes.func
-};
+Modal.propTypes = modalType;
 
 export default Modal;

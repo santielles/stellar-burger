@@ -5,12 +5,11 @@ import { useDispatch } from 'react-redux';
 import { reorderIngredientsAction, removeIngredientAction } from '../../../store/actions/burgerConstructorActions';
 import { decreaseCountAction } from '../../../store/actions/ingredientsListActions';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
+import { draggableIngredientType } from '../../../utils/types';
 
 function DraggableIngredient({ index, ingredient }) {
   const dispatch = useDispatch();
   const dragAndDropRef = useRef(null);
-
   const [, drop] = useDrop({
     accept: 'ingredientReorder',
     // Функция, вызываемая при наведении перетаскиваемого игредиента на другой ингредиент
@@ -57,14 +56,6 @@ function DraggableIngredient({ index, ingredient }) {
   );
 }
 
-DraggableIngredient.propTypes = {
-  index: PropTypes.number.isRequired,
-  ingredient: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    image_mobile: PropTypes.string.isRequired
-  }).isRequired
-};
+DraggableIngredient.propTypes = draggableIngredientType;
 
 export { DraggableIngredient };

@@ -1,5 +1,5 @@
+import { overlayType } from '../../utils/types';
 import styles from './Overlay.module.css';
-import PropTypes from 'prop-types';
 
 function Overlay({ onClose }) {
   return (
@@ -7,8 +7,6 @@ function Overlay({ onClose }) {
   );
 }
 
-Overlay.propTypes = {
-  onClose: PropTypes.func
-};
+Overlay.propTypes = overlayType;
 
 export default Overlay;
