@@ -1,24 +1,24 @@
 import { ADD_INGREDIENT, REMOVE_INGREDIENT, REORDER_INGREDIENTS } from '../../utils/constants';
 
-function actionAddIngredientToBurger(ingredient) {
+function addIngredientToBurgerAction(ingredient) {
   return {
     type: ADD_INGREDIENT,
     ingredient: ingredient
   };
 };
 
-function actionRemoveIngredient(ingredientIndex) {
+function removeIngredientAction(ingredientIndex) {
   return {
     type: REMOVE_INGREDIENT,
     ingredientIndex: ingredientIndex
   };
 };
 
-function actionReorderIngredients(fromIndex, toIndex) {
+function reorderIngredientsAction(fromIndex, toIndex) {
   return {
     type: REORDER_INGREDIENTS,
     payload: { fromIndex, toIndex }
   };
 };
 
-export { actionAddIngredientToBurger, actionRemoveIngredient, actionReorderIngredients };
+export { addIngredientToBurgerAction, removeIngredientAction, reorderIngredientsAction };

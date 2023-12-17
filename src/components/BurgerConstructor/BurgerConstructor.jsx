@@ -4,8 +4,8 @@ import { useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../Modal/Modal';
 import { useDrop } from 'react-dnd';
-import { actionAddIngredientToBurger } from '../../store/actions/burgerConstructorActions';
-import { actionIncreaseCount, actionDecreaseCount } from '../../store/actions/ingredientsListActions';
+import { addIngredientToBurgerAction } from '../../store/actions/burgerConstructorActions';
+import { increaseCountAction, decreaseCountAction } from '../../store/actions/ingredientsListActions';
 import { sendOrder } from '../../store/actions/orderActions';
 import { DraggableIngredient } from './DraggableIngredient/DraggableIngredient';
 
@@ -50,9 +50,9 @@ function BurgerConstructor() {
         // и увеличения счетчика этого ингредиента.
         function addIngredient() {
           // Диспатчим action добавления ингредиента в конструктор бургера
-          dispatch(actionAddIngredientToBurger(draggableIngredientInfo));
+          dispatch(addIngredientToBurgerAction(draggableIngredientInfo));
           // Диспатчим action увеличения счетчика для данного ингредиента
-          dispatch(actionIncreaseCount(draggableIngredientInfo._id));
+          dispatch(increaseCountAction(draggableIngredientInfo._id));
         };
         // Проверяем, является ли перетаскиваемый ингредиент булочкой
         if (draggableIngredientInfo.type === 'bun') {
@@ -61,7 +61,7 @@ function BurgerConstructor() {
           // Если булочка уже есть в конструкторе,
           if (existingBun) {
             // то уменьшаем счетчик для этой булочки.
-            dispatch(actionDecreaseCount(existingBun._id));
+            dispatch(decreaseCountAction(existingBun._id));
           }
           // Добавляем новую булочку в конструктор и увеличиваем ее счетчик.
           addIngredient();

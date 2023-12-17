@@ -2,8 +2,8 @@ import styles from './DraggableIngredient.module.css';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
-import { actionReorderIngredients, actionRemoveIngredient } from '../../../store/actions/burgerConstructorActions';
-import { actionDecreaseCount } from '../../../store/actions/ingredientsListActions';
+import { reorderIngredientsAction, removeIngredientAction } from '../../../store/actions/burgerConstructorActions';
+import { decreaseCountAction } from '../../../store/actions/ingredientsListActions';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
@@ -24,7 +24,7 @@ function DraggableIngredient({ index, ingredient }) {
       // Если индексы обоих ингредиентов равны, завершаем функцию
       if (dragIndex === hoverIndex) return;
       // Иначе упорядочиваем ингредиенты
-      dispatch(actionReorderIngredients(dragIndex, hoverIndex));
+      dispatch(reorderIngredientsAction(dragIndex, hoverIndex));
       // Меняем у текущего игредиента индекс на актуальный
       draggedIngredient.index = hoverIndex;
     }
@@ -48,9 +48,9 @@ function DraggableIngredient({ index, ingredient }) {
         // При нажатии на значок корзины
         handleClose={() => {
           // Удаляем ингредиент
-          dispatch(actionRemoveIngredient(index));
+          dispatch(removeIngredientAction(index));
           // Уменьшаем его счётчик
-          dispatch(actionDecreaseCount(ingredient._id));
+          dispatch(decreaseCountAction(ingredient._id));
         }}
       />
     </div>

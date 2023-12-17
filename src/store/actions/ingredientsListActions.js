@@ -3,7 +3,7 @@
 import { API_SERVER_INGREDIENTS, LOAD_INGREDIENTS, INCREASE_INGREDIENTS_COUNT, DECREASE_INGREDIENTS_COUNT } from '../../utils/constants';
 
 // Действия (actions) отправляются (dispatched) в store с помощью функций.
-function actionLoadIngredients(ingredientsList) {
+function loadIngredientsAction(ingredientsList) {
   return {
     type: LOAD_INGREDIENTS,
     ingredients: ingredientsList
@@ -34,7 +34,7 @@ function fetchIngredients() {
       }));
 
       // Загружаем полученый массив ингредиентов в стор 'ingredientsListStore'
-      dispatch(actionLoadIngredients(dataWithCount));
+      dispatch(loadIngredientsAction(dataWithCount));
     } catch (error) {
       console.error('Ошибка получения списка ингредиентов с сервера: ', error);
     }
@@ -42,18 +42,18 @@ function fetchIngredients() {
 };
 
 // этот action мы используем для того чтобы увеличть число над ингридиентом в BurgerIngredients в "Ingredients"
-function actionIncreaseCount(ingredientID) {
+function increaseCountAction(ingredientID) {
   return {
     type: INCREASE_INGREDIENTS_COUNT,
     ingredientID: ingredientID
   };
 };
 
-function actionDecreaseCount(ingredientID) {
+function decreaseCountAction(ingredientID) {
   return {
     type: DECREASE_INGREDIENTS_COUNT,
     ingredientID: ingredientID
   };
 };
 
-export { actionLoadIngredients, actionIncreaseCount, actionDecreaseCount, fetchIngredients };
+export { loadIngredientsAction, increaseCountAction, decreaseCountAction, fetchIngredients };

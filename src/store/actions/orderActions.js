@@ -24,18 +24,18 @@ function sendOrder(ingredientsIDs) {
       const responseData = await response.json();
 
       // Диспатчим действие для сохранения ответа сервера в стор
-      dispatch(actionSaveOrderResponse(responseData));
+      dispatch(saveOrderResponseAction(responseData));
     } catch (error) {
       console.error('Ошибка отправки заказа: ', error);
     }
   };
 };
 
-function actionSaveOrderResponse(orderData) {
+function saveOrderResponseAction(orderData) {
   return {
     type: SAVE_ORDER,
     orderData: orderData
   };
 };
 
-export { sendOrder, actionSaveOrderResponse };
+export { sendOrder, saveOrderResponseAction };
