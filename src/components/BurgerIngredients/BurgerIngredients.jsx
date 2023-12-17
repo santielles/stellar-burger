@@ -4,6 +4,8 @@ import { Ingredient } from './Ingredient/Ingredient';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
+import Modal from '../Modal/Modal';
+import IngredientDetails from './IngredientDetails/IngredientDetails';
 
 function BurgerIngredients() {
   const burgerIngredientsData = useSelector((store) => store.ingredientsListStore);
@@ -16,6 +18,20 @@ function BurgerIngredients() {
   const { ref: bunsSectionRef, inView: bunsSectionInView } = useInView({ threshold: 0.2 });
   const { ref: saucesSectionRef, inView: saucesSectionInView } = useInView({ threshold: 0.2 });
   const { ref: pattiesSectionRef, inView: pattiesSectionInView } = useInView({ threshold: 0.2 });
+
+  // Состояния для управления модальным окном
+  const [selectedIngredient, setSelectedIngredient] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  // Функция для открытия модального окна с данными ингредиента
+  function openModal(ingredient) {
+    setSelectedIngredient(ingredient);
+    setIsModalOpen(true);
+  };
+  // Функция для закрытия модального окна
+  function closeModal() {
+    setIsModalOpen(false);
+    setSelectedIngredient(null);
+  };
 
   // Используем useEffect для отслеживания видимости каждой секции
   // Делаем активный таб в зависимости от того, какая секция видна на экране
@@ -44,7 +60,7 @@ function BurgerIngredients() {
           {
             burgerIngredientsData.map((item) => {
               if (item.type === 'bun') {
-                return <Ingredient key={item._id} ingredientInfo={item} />;
+                return <Ingredient key={item._id} ingredientInfo={item} onClick={() => openModal(item)} />;
               }
               return null;
             })
@@ -55,7 +71,7 @@ function BurgerIngredients() {
           {
             burgerIngredientsData.map((item) => {
               if (item.type === 'sauce') {
-                return <Ingredient key={item._id} ingredientInfo={item} />;
+                return <Ingredient key={item._id} ingredientInfo={item} onClick={() => openModal(item)} />;
               }
               return null;
             })
@@ -66,13 +82,18 @@ function BurgerIngredients() {
           {
             burgerIngredientsData.map((item) => {
               if (item.type === 'main') {
-                return <Ingredient key={item._id} ingredientInfo={item} />;
+                return <Ingredient key={item._id} ingredientInfo={item} onClick={() => openModal(item)} />;
               }
               return null;
             })
           }
         </div>
       </div>
+      {isModalOpen && (
+        <Modal onClose={closeModal}>
+          <IngredientDetails modalIngredientInfo={selectedIngredient} />
+        </Modal>
+      )}
     </section>
   );
 }

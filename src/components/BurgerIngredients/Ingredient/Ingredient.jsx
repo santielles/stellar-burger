@@ -1,14 +1,9 @@
 import styles from './Ingredient.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState } from 'react';
-import Modal from '../../Modal/Modal';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { useDrag } from 'react-dnd';
 import { ingredientType } from '../../../utils/types';
 
-function Ingredient({ ingredientInfo }) {
-  const [showModal, setShowModal] = useState(false);
-
+function Ingredient({ ingredientInfo, onClick }) {
   // dragRef это рефка (ref={dragRef}) которую мы устанавливаем на div, который будет перетаскиваться
   // useDrag это хук, который принимаем в себя обязательное поле type, в нем название 'ingredient' как идентификатор
   // такой же type ставится в место куда будем перетаскивать объекты, устанавливая связь.
@@ -23,17 +18,9 @@ function Ingredient({ ingredientInfo }) {
     }
   );
 
-  function openModal() {
-    setShowModal(true);
-  };
-
-  function closeModal() {
-    setShowModal(false);
-  };
-
   return (
     <>
-      <div className={styles.ingredient} onClick={openModal} ref={dragRef}>
+      <div className={styles.ingredient} onClick={onClick} ref={dragRef}>
         <img className={styles.ingredient__image} src={ingredientInfo.image} alt={ingredientInfo.name} />
         <div className={styles.ingredient__price}>
           <p className="text text_type_digits-default">{ingredientInfo.price}</p>
@@ -42,12 +29,6 @@ function Ingredient({ ingredientInfo }) {
         <h3 className={`text text_type_main-default ${styles.ingredient__title}`}>{ingredientInfo.name}</h3 >
         {ingredientInfo.count != 0 && <p className={`${styles.count} text text_type_digits-default`}>{ingredientInfo.count}</p>}
       </div>
-      {
-        showModal &&
-        <Modal className="nutritions" onClose={closeModal}>
-          <IngredientDetails modalIngredientInfo={ingredientInfo} />
-        </Modal>
-      }
     </>
   );
 }
