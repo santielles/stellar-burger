@@ -103,7 +103,7 @@ function BurgerConstructor() {
               if (ingredient.type !== 'bun') {
                 return (
                   <DraggableIngredient
-                    key={index}
+                    key={ingredient.uniqueId}
                     index={index}
                     ingredient={ingredient}
                   />

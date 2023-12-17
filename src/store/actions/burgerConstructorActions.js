@@ -1,9 +1,13 @@
 import { ADD_INGREDIENT, REMOVE_INGREDIENT, REORDER_INGREDIENTS } from '../../utils/constants';
+import { v4 as uuidv4 } from 'uuid';
 
 function addIngredientToBurgerAction(ingredient) {
   return {
     type: ADD_INGREDIENT,
-    ingredient: ingredient
+    ingredient: {
+      ...ingredient,
+      uniqueId: uuidv4()
+    }
   };
 };
 
