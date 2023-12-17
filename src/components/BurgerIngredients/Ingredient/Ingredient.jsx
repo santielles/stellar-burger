@@ -34,7 +34,7 @@ function Ingredient({ ingredientInfo }) {
   return (
     <>
       <div className={styles.ingredient} onClick={openModal} ref={dragRef}>
-        <img className={styles.ingredient__image} src={ingredientInfo.image} />
+        <img className={styles.ingredient__image} src={ingredientInfo.image} alt={ingredientInfo.name} />
         <div className={styles.ingredient__price}>
           <p className="text text_type_digits-default">{ingredientInfo.price}</p>
           <CurrencyIcon type="primary" />
