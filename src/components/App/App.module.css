@@ -3,3 +3,10 @@
   flex-direction: column;
   background-color: var(--background-alt);
 }
+
+.centered_text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

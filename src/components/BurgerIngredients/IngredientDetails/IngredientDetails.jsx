@@ -1,11 +1,11 @@
+import { ingredientType } from '../../../utils/types';
 import styles from './IngredientDetails.module.css';
-import PropTypes from 'prop-types';
 
 function IngredientDetails({ modalIngredientInfo }) {
   return (
     <div className="nutritions">
       <p className="text text text_type_main-medium mt-10">Детали ингредиента</p>
-      <img className={`${styles.image_popup} mb-4`} src={modalIngredientInfo.image} />
+      <img className={`${styles.image_popup} mb-4`} src={modalIngredientInfo.image_large} alt={modalIngredientInfo.name} />
       <p className="text text_type_main-default">{modalIngredientInfo.name}</p>
       <div className={`${styles.nutritions} mt-8 mb-15`}>
         <div>
@@ -30,20 +30,7 @@ function IngredientDetails({ modalIngredientInfo }) {
 }
 
 IngredientDetails.propTypes = {
-  modalIngredientInfo: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number
-  }).isRequired
+  modalIngredientInfo: ingredientType.isRequired
 };
 
 export default IngredientDetails;

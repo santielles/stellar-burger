@@ -1,6 +1,6 @@
 import styles from './Tabs.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
+import { tabsType } from '../../utils/types';
 
 function Tabs({ activeTab, setActiveTab }) {
   return (
@@ -18,9 +18,6 @@ function Tabs({ activeTab, setActiveTab }) {
   );
 }
 
-Tabs.propTypes = {
-  activeTab: PropTypes.string,
-  setActiveTab: PropTypes.func
-};
+Tabs.propTypes = tabsType;
 
 export { Tabs };

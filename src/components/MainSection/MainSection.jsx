@@ -1,39 +1,44 @@
 import styles from './MainSection.module.css';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchIngredients } from '../../store/actions/ingredientsListActions';
 import { BurgerIngredients } from '../BurgerIngredients/BurgerIngredients';
 import { BurgerConstructor } from '../BurgerConstructor/BurgerConstructor';
-import PropTypes from 'prop-types';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
-function MainSection({ ingredientsData }) {
-  // Может так получиться что данные с сервера ещё не загружены,
-  // Поэтому мы не рендерим этот компонент пока данные об ингредиентах не будут полностью загружены с сервера
-  // А как только данные загрузятся, компонент App перерендерится, так как изменится его state, куда мы кладём данные
-  if (!ingredientsData || ingredientsData.length === 0) {
-    return null;
+function MainSection() {
+  // когда будет несколько редьюсеров, к нужному стору надо будет обращаться по имени
+  const ingredientsList = useSelector((store) => store.ingredientsListStore);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, []);
+
+  // Для того чтобы наши компоненты  AppHeader и MainSection не рендерились раньше чем будут загружены данные сервера
+  // нам нужно добавить условие.
+  // Проверяем, если ingredientsList не true (т.е. данные еще не загружены) ИЛИ
+  // длина этого списка равно нулю (т.е. ingredientsList пустой) -
+  if (!ingredientsList || ingredientsList.length === 0) {
+    return (
+      // - отобрази сообщение о том что данные еще подгружаются.
+      <div className={styles.centered_text}>
+        <h1>Подождите пока данные загружается с сервера...</h1>
+      </div>
+    );
   }
-
+  // Как только данные загружены и ingredientsList обновлен, компоненты AppHeader и MainSection будут отрендерены.
   return (
-    <main className={styles.main}>
-      <BurgerIngredients burgerIngredientsData={ingredientsData} />
-      <BurgerConstructor burgerConstructorData={ingredientsData} />
-    </main>
+    // тут мы подключаем библиотеку чтобы работал drag and drop
+    // она подключится ко всем компонентам, которые в нее обернуты
+    <DndProvider backend={HTML5Backend}>
+      <main className={styles.main}>
+        <BurgerIngredients />
+        <BurgerConstructor />
+      </main>
+    </DndProvider>
   );
 }
-
-MainSection.propTypes = {
-  ingredientsData: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number
-  })).isRequired
-};
 
 export { MainSection };
