@@ -6,14 +6,14 @@ import Modal from '../Modal/Modal';
 import { useDrop } from 'react-dnd';
 import { addIngredientToBurgerAction } from '../../store/actions/burgerConstructorActions';
 import { increaseCountAction, decreaseCountAction } from '../../store/actions/ingredientsListActions';
-import { sendOrder } from '../../store/actions/orderActions';
+import { resetOrderData, sendOrder } from '../../store/actions/orderActions';
 import { DraggableIngredient } from './DraggableIngredient/DraggableIngredient';
 import OrderDetails from './OrderDetails/OrderDetails';
 import { useNavigate } from 'react-router-dom';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.accountDataStore.isAuthenticated);
   const burgerConstructorData = useSelector((store) => store.burgerConstructorStore);
@@ -78,11 +78,12 @@ function BurgerConstructor() {
   );
 
   function openModal() {
-    setShowModal(true);
+    setIsModalOpen(true);
   };
 
   function closeModal() {
-    setShowModal(false);
+    setIsModalOpen(false);
+    dispatch(resetOrderData());
   };
 
   function handleOrderClick() {
@@ -153,7 +154,7 @@ function BurgerConstructor() {
           Оформить заказ
         </Button>
         {
-          showModal && (
+          isModalOpen && (
             <Modal onClose={closeModal}>
               <OrderDetails />
             </Modal>

@@ -6,6 +6,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { performLogin } from '../../../store/actions/accountActions';
 
 function Login() {
+  console.log('Login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function Login() {
     <div className={`${styles.entrance}`}>
       {/* Если логин прошёл успешно, делаем редирект на "/" */}
       {isAuthenticated && (
-        <Navigate to="/" replace={true} />
+        <Navigate to='/' replace={true} />
       )}
       <div className={`${styles.form}`}>
         <p className="text text_type_main-medium mb-6" style={{ textAlign: 'center' }}>Вход</p>

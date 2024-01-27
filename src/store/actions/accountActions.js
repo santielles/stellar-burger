@@ -1,4 +1,4 @@
-import { API_SERVER_LOGIN, API_SERVER_LOGOUT, API_SERVER_RESET_PASSWORD, API_SERVER_REGISTER, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILURE, REGISTER_SUCCESS, FORGOT_PASSWORD, API_SERVER_FORGOT_PASSWORD, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE, GET_USER_DETAILS, SET_USER_DETAILS, API_SERVER_USER } from '../../utils/constants';
+import { API_SERVER_LOGIN, API_SERVER_LOGOUT, API_SERVER_RESET_PASSWORD, API_SERVER_REGISTER, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILURE, REGISTER_SUCCESS, FORGOT_PASSWORD, API_SERVER_FORGOT_PASSWORD, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE, GET_USER_DETAILS, SET_USER_DETAILS, API_SERVER_USER, REFRESH_TOKENS, API_SERVER_TOKEN, SET_INITIALIZING } from '../../utils/constants';
 import { checkAPIResponse } from '../../utils/utils';
 
 // Async thunk action
@@ -121,13 +121,12 @@ function performGetUserDetails() {
       const response = await fetch(API_SERVER_USER, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          authorization: localStorage.getItem('accessToken')
-        })
+          'Content-Type': 'application/json',
+          'authorization': localStorage.getItem('accessToken')
+        }
       });
       const responseJSON = await checkAPIResponse(response);
+      console.log('Profie: ', responseJSON);
       dispatch(getUserDetails(responseJSON));
     } catch (error) {
       console.error('Ошибка получения данных пользователя: ', error.message);
@@ -153,6 +152,32 @@ function performSetUserDetails(userUpdatedData) {
       dispatch(setUserDetails(responseJSON));
     } catch (error) {
       console.error('Ошибка обновления данных пользователя: ', error.message);
+    }
+  };
+};
+
+function performRefreshTokens() {
+  return async (dispatch) => {
+    dispatch(setInitializing(true));
+    try {
+      const response = await fetch(API_SERVER_TOKEN, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          token: localStorage.getItem('refreshToken')
+        })
+      });
+      const responseJSON = await checkAPIResponse(response);
+      console.log('Tokens: ', responseJSON);
+      localStorage.setItem('accessToken', responseJSON.accessToken);
+      localStorage.setItem('refreshToken', responseJSON.refreshToken);
+      dispatch(refreshTokens(responseJSON));
+      dispatch(setInitializing(false));
+    } catch (error) {
+      dispatch(setInitializing(false));
+      console.error('Токены более не действительны: ', error.message);
     }
   };
 };
@@ -224,4 +249,17 @@ function setUserDetails(userData) {
   };
 };
 
-export { performLogin, performRegistration, performLogout, performForgotPassword, performResetPassword, performSetUserDetails };
+function refreshTokens() {
+  return {
+    type: REFRESH_TOKENS
+  };
+};
+
+function setInitializing(isInitializing) {
+  return {
+    type: SET_INITIALIZING,
+    isInitializing: isInitializing
+  };
+}
+
+export { performLogin, performRegistration, performLogout, performForgotPassword, performResetPassword, performGetUserDetails, performSetUserDetails, performRefreshTokens, setInitializing };

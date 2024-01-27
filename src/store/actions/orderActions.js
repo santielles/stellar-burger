@@ -1,4 +1,4 @@
-import { API_SERVER_ORDER, SAVE_ORDER } from '../../utils/constants';
+import { API_SERVER_ORDER, RESET_ORDER_DATA, SAVE_ORDER } from '../../utils/constants';
 import { checkAPIResponse } from '../../utils/utils';
 
 // Async thunk action
@@ -30,4 +30,10 @@ function saveOrderResponseAction(orderData) {
   };
 };
 
-export { sendOrder, saveOrderResponseAction };
+function resetOrderData() {
+  return {
+    type: RESET_ORDER_DATA
+  };
+};
+
+export { sendOrder, saveOrderResponseAction, resetOrderData };

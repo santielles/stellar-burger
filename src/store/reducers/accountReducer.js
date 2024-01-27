@@ -1,6 +1,7 @@
-import { LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILURE, REGISTER_SUCCESS, FORGOT_PASSWORD, RESET_PASSWORD, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE, GET_USER_DETAILS, SET_USER_DETAILS } from '../../utils/constants';
+import { LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILURE, REGISTER_SUCCESS, FORGOT_PASSWORD, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE, GET_USER_DETAILS, SET_USER_DETAILS, REFRESH_TOKENS, SET_INITIALIZING } from '../../utils/constants';
 
 const accountData = {
+  isInitializing: true,
   login: {},
   isAuthenticated: false,
   loginError: null,
@@ -15,13 +16,13 @@ const accountData = {
 function accountReducer(state = accountData, action) {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      return { ...state, login: action.loginData.user, accessToken: action.loginData.accessToken, isAuthenticated: true, loginError: null };
+      return { ...state, login: action.loginData.user, isAuthenticated: true, loginError: null };
     case LOGIN_FAILURE:
       return { ...state, loginError: action.loginError };
     case LOGOUT:
-      return { ...state, login: {}, accessToken: null, isAuthenticated: false };
+      return { ...state, login: {}, isAuthenticated: false };
     case REGISTER_SUCCESS:
-      return { ...state, login: action.registerData.user, accessToken: action.registerData.accessToken, isAuthenticated: true, registerError: null };
+      return { ...state, login: action.registerData.user, isAuthenticated: true, registerError: null };
     case REGISTER_FAILURE:
       return { ...state, registerError: action.registerError };
     case FORGOT_PASSWORD:
@@ -34,6 +35,10 @@ function accountReducer(state = accountData, action) {
       return { ...state, login: action.userData.user };
     case SET_USER_DETAILS:
       return { ...state, login: action.userData.user };
+    case REFRESH_TOKENS:
+      return { ...state, isAuthenticated: true, loginError: null };
+    case SET_INITIALIZING:
+      return { ...state, isInitializing: action.isInitializing };
     default:
       return state;
   }

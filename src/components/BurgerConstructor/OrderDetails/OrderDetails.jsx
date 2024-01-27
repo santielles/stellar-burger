@@ -1,17 +1,13 @@
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
+import Preloader from '../../Preloader/Preloader';
 
 function OrderDetails() {
   const orderData = useSelector((store) => store.orderDataStore);
 
   // Если данные заказа ещё не получены с сервера
   if (Object.keys(orderData).length === 0) {
-    return (
-      // отобразим сообщение о том что данные еще подгружаются.
-      <div>
-        <h1 className="text text_type_main-large text_color_inactive mb-30 mt-30">Подождите пока заказ загружается на сервер...</h1>
-      </div>
-    );
+    return <Preloader />;
   }
 
   return (

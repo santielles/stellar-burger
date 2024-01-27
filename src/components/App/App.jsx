@@ -12,20 +12,23 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchIngredients } from '../../store/actions/ingredientsListActions';
 import IngredientPage from '../pages/IngredientPage/IngredientPage';
+import { performRefreshTokens } from '../../store/actions/accountActions';
 
 function App() {
+  console.log('App');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
-    dispatch(fetchIngredients());
     // location state сохраняется когда мы обновляем страницу по F5
     // у нас там хранится state: { modalOpened: true }
     // очищаем state при обновлении страницы чтобы избежать ошибок
     if (location.state) {
       navigate(location.pathname, { replace: true });
     }
-  }, []);
+    dispatch(fetchIngredients(true));
+    dispatch(performRefreshTokens());
+  }, [dispatch]);
 
   return (
     <div className={`${styles.app} m-10`}>

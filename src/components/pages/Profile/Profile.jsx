@@ -1,7 +1,7 @@
 import styles from '../pages.module.css';
 import { useEffect, useState } from 'react';
 import { PasswordInput, EmailInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { performLogout, performSetUserDetails } from '../../../store/actions/accountActions';
+import { performGetUserDetails, performLogout, performSetUserDetails } from '../../../store/actions/accountActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
@@ -12,13 +12,17 @@ function Profile() {
   const [userDataChanged, setUserDataChanged] = useState('');
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.accountDataStore.login);
-
+  console.log('Profile');
   useEffect(() => {
-    if (userProfile) {
+    if (Object.keys(userProfile).length !== 0) {
       setEmail(userProfile.email);
       setLogin(userProfile.name);
     }
   }, [userProfile]);
+
+  useEffect(() => {
+    dispatch(performGetUserDetails());
+  }, []);
 
   function handleEmailChange(e) {
     setEmail(e.target.value);

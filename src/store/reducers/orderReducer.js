@@ -1,4 +1,4 @@
-import { SAVE_ORDER } from '../../utils/constants';
+import { RESET_ORDER_DATA, SAVE_ORDER } from '../../utils/constants';
 
 // Пример orderData:
 // {
@@ -14,6 +14,8 @@ function orderReducer(state = orderData, action) {
   switch (action.type) {
     case SAVE_ORDER:
       return action.orderData;
+    case RESET_ORDER_DATA:
+      return {};
     default:
       return state;
   }
