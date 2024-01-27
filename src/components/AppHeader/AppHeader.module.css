@@ -21,8 +21,10 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  text-decoration: none;
+  color: var(--text-inactive-color);
 }
 
-.navigation__item_inactive {
-  color: var(--text-inactive-color);
+.navigation__item_active {
+  color: var(--text-primary-color);
 }

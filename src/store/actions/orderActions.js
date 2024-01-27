@@ -14,15 +14,9 @@ function sendOrder(ingredientsIDs) {
         },
         body: JSON.stringify({ ingredients: ingredientsIDs })
       });
-
-      // Проверяем, успешно ли выполнен запрос
-      checkAPIResponse(response);
-
-      // Преобразуем ответ от сервера из формата JSON в JavaScript-объект
-      const responseData = await response.json();
-
+      const responseJSON = await checkAPIResponse(response);
       // Диспатчим действие для сохранения ответа сервера в стор
-      dispatch(saveOrderResponseAction(responseData));
+      dispatch(saveOrderResponseAction(responseJSON));
     } catch (error) {
       console.error('Ошибка отправки заказа: ', error);
     }

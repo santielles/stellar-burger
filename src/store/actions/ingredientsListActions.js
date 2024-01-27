@@ -16,12 +16,7 @@ function fetchIngredients() {
     try {
       // Получаем список ингредиентов с сервера
       const response = await fetch(API_SERVER_INGREDIENTS);
-
-      // Проверяем, успешно ли выполнен запрос
-      checkAPIResponse(response);
-
-      // Преобразуем ответ от сервера из формата JSON в JavaScript-объект
-      const responseJSON = await response.json();
+      const responseJSON = await checkAPIResponse(response);
       // Добавляем свойство count со значением 0 к каждому элементу массива ингредиентов
       // Это необходимо для последующей логики подсчета количества каждого ингредиента, добавленного в бургер
       const dataWithCount = responseJSON.data.map((item) => ({
