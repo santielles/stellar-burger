@@ -9,7 +9,6 @@ function ForgotPassword() {
   const [email, setEmail] = useState('');
   const dispatch = useDispatch();
   const emailSent = useSelector((state) => state.accountDataStore.resetPassword.emailSent);
-  const isAuthenticated = useSelector((state) => state.accountDataStore.isAuthenticated);
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
@@ -21,9 +20,6 @@ function ForgotPassword() {
 
   return (
     <div className={`${styles.entrance}`}>
-      {isAuthenticated && (
-        <Navigate to="/" replace={true} />
-      )}
       {emailSent && (
         <Navigate to="/reset-password" replace={true} />
       )}

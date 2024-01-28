@@ -2,7 +2,7 @@ import styles from '../pages.module.css';
 import { Button, PasswordInput, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { performLogin } from '../../../store/actions/accountActions';
 
 function Login() {
@@ -10,7 +10,6 @@ function Login() {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const loginError = useSelector((state) => state.accountDataStore.loginError);
-  const isAuthenticated = useSelector((state) => state.accountDataStore.isAuthenticated);
 
   function handlePasswordChange(e) {
     setPassword(e.target.value);
@@ -26,10 +25,6 @@ function Login() {
 
   return (
     <div className={`${styles.entrance}`}>
-      {/* Если логин прошёл успешно, делаем редирект на "/" */}
-      {isAuthenticated && (
-        <Navigate to='/' replace={true} />
-      )}
       <div className={`${styles.form}`}>
         <p className="text text_type_main-medium mb-6" style={{ textAlign: 'center' }}>Вход</p>
         <EmailInput

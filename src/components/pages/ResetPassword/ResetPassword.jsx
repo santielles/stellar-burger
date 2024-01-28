@@ -11,7 +11,6 @@ function ResetPassword() {
   const dispatch = useDispatch();
   const passwordChanged = useSelector((state) => state.accountDataStore.resetPassword.passwordChanged);
   const resetPasswordError = useSelector((state) => state.accountDataStore.resetPassword.error);
-  const isAuthenticated = useSelector((state) => state.accountDataStore.isAuthenticated);
 
   function handlePasswordChange(e) {
     setPassword(e.target.value);
@@ -27,9 +26,6 @@ function ResetPassword() {
 
   return (
     <div className={`${styles.entrance}`}>
-      {isAuthenticated && (
-        <Navigate to="/" replace={true} />
-      )}
       {passwordChanged && (
         <Navigate to="/login" replace={true} />
       )}

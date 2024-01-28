@@ -18,6 +18,7 @@ function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
   useEffect(() => {
     // location state сохраняется когда мы обновляем страницу по F5
     // у нас там хранится state: { modalOpened: true }
@@ -39,10 +40,34 @@ function App() {
             <MainSection />
           }
         />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/login" element=
+          {
+            <ProtectedRoute redirectAuthenticated>
+              <Login />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/register" element=
+          {
+            <ProtectedRoute redirectAuthenticated>
+              <Register />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/forgot-password" element=
+          {
+            <ProtectedRoute redirectAuthenticated>
+              <ForgotPassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/reset-password" element=
+          {
+            <ProtectedRoute redirectAuthenticated>
+              <ResetPassword />
+            </ProtectedRoute>
+          }
+        />
         {/* Если у нас в location в state есть переменная modalOpened, то открываем модальное окно с ингредиентом */}
         {/* иначе открываем отдельную страницу с ингредиентом */}
         <Route path="/ingredients/:id" element={location.state?.modalOpened ? <MainSection /> : <IngredientPage />} />

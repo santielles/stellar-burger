@@ -1,7 +1,7 @@
 import styles from '../pages.module.css';
 import { useState } from 'react';
 import { Button, PasswordInput, EmailInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { performRegistration } from '../../../store/actions/accountActions';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -11,7 +11,6 @@ function Register() {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const registerError = useSelector((state) => state.accountDataStore.registerError);
-  const isAuthenticated = useSelector((state) => state.accountDataStore.isAuthenticated);
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
@@ -31,10 +30,6 @@ function Register() {
 
   return (
     <div className={`${styles.entrance}`}>
-      {/* Если логин прошёл успешно, делаем редирект на "/" */}
-      {isAuthenticated && (
-        <Navigate to="/" replace={true} />
-      )}
       <div className={`${styles.form}`}>
         <p className="text text_type_main-medium mb-6" style={{ textAlign: 'center' }}>Регистрация</p>
         <EmailInput
