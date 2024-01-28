@@ -14,16 +14,21 @@ function ForgotPassword() {
     setEmail(e.target.value);
   };
 
-  function handleForgotPassword() {
+  function handleForgotPassword(event) {
+    event.preventDefault();
     dispatch(performForgotPassword(email));
   };
 
   return (
     <div className={`${styles.entrance}`}>
       {emailSent && (
-        <Navigate to="/reset-password" replace={true} />
+        <Navigate
+          to="/reset-password"
+          replace={true}
+          state={{ cameFrom: '/forgot-password' }}
+        />
       )}
-      <div className={`${styles.form}`}>
+      <form className={`${styles.form}`} onSubmit={handleForgotPassword}>
         <p className="text text_type_main-medium mb-6" style={{ textAlign: 'center' }}>Восстановление пароля</p>
         <EmailInput
           onChange={handleEmailChange}
@@ -33,8 +38,7 @@ function ForgotPassword() {
           extraClass="mb-6"
         />
         <Button
-          onClick={handleForgotPassword}
-          htmlType="button"
+          htmlType="submit"
           type="primary"
           size="medium"
           extraClass={`mb-20 ${styles.button}`}>
@@ -43,7 +47,7 @@ function ForgotPassword() {
         <p className="text text_type_main-default text_color_inactive mb-4" style={{ textAlign: 'center' }}>
           Вспомнили пароль? <Link to="/login" className={styles.link}>Войти</Link>
         </p>
-      </div>
+      </form>
     </div>
   );
 };

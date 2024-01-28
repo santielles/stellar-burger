@@ -19,13 +19,14 @@ function Login() {
     setEmail(e.target.value);
   };
 
-  function handleLogin() {
+  function handleLogin(event) {
+    event.preventDefault();
     dispatch(performLogin({ email, password }));
   };
 
   return (
     <div className={`${styles.entrance}`}>
-      <div className={`${styles.form}`}>
+      <form className={`${styles.form}`} onSubmit={handleLogin}>
         <p className="text text_type_main-medium mb-6" style={{ textAlign: 'center' }}>Вход</p>
         <EmailInput
           onChange={handleEmailChange}
@@ -42,8 +43,7 @@ function Login() {
         />
         {loginError && <div className="text text_type_main-default text_color_error mb-6">Ошибка логина: {loginError}</div>}
         <Button
-          onClick={handleLogin}
-          htmlType="button"
+          htmlType="submit"
           type="primary"
           size="medium"
           extraClass={`mb-20 ${styles.button}`}>
@@ -55,7 +55,7 @@ function Login() {
         <p className="text text_type_main-default text_color_inactive" style={{ textAlign: 'center' }}>
           Забыли пароль? <Link to="/forgot-password" className={styles.link}>Восстановить пароль</Link>
         </p>
-      </div>
+      </form>
     </div>
   );
 };

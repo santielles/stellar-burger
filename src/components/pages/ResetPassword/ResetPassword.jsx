@@ -2,7 +2,7 @@ import styles from '../pages.module.css';
 import { useState } from 'react';
 import { Button, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { performResetPassword } from '../../../store/actions/accountActions';
 
 function ResetPassword() {
@@ -11,6 +11,8 @@ function ResetPassword() {
   const dispatch = useDispatch();
   const passwordChanged = useSelector((state) => state.accountDataStore.resetPassword.passwordChanged);
   const resetPasswordError = useSelector((state) => state.accountDataStore.resetPassword.error);
+  const location = useLocation();
+  const cameFromForgotPassword = location.state?.cameFrom === '/forgot-password';
 
   function handlePasswordChange(e) {
     setPassword(e.target.value);
@@ -20,16 +22,21 @@ function ResetPassword() {
     setNumber(e.target.value);
   };
 
-  function handleResetPassword() {
+  function handleResetPassword(event) {
+    event.preventDefault();
     dispatch(performResetPassword({ number, password }));
   };
+
+  if (!cameFromForgotPassword) {
+    return <Navigate to="/forgot-password" replace={true} />;
+  }
 
   return (
     <div className={`${styles.entrance}`}>
       {passwordChanged && (
         <Navigate to="/login" replace={true} />
       )}
-      <div className={`${styles.form}`}>
+      <form className={`${styles.form}`} onSubmit={handleResetPassword}>
         <p className="text text_type_main-medium mb-6" style={{ textAlign: 'center' }}>Восстановление пароля</p>
         <PasswordInput
           onChange={handlePasswordChange}
@@ -48,15 +55,14 @@ function ResetPassword() {
         />
         {resetPasswordError && <div className="text text_type_main-default text_color_error mb-6">Ошибка: {resetPasswordError}</div>}
         <Button
-          onClick={handleResetPassword}
-          htmlType="button"
+          htmlType="submit"
           type="primary"
           size="medium"
           extraClass={`mb-20 ${styles.button}`}>
           Сохранить
         </Button>
         <p className="text text_type_main-default text_color_inactive mb-4" style={{ textAlign: 'center' }}>Вспомнили пароль? <a href="/register" className={styles.link}>Войти</a></p>
-      </div>
+      </form>
     </div>
   );
 };

@@ -52,7 +52,8 @@ function Profile() {
     setUserDataChanged(false);
   }
 
-  function handleSave() {
+  function handleSave(event) {
+    event.preventDefault();
     dispatch(performSetUserDetails({ email, login }));
     setUserDataChanged(false);
   }
@@ -82,34 +83,32 @@ function Profile() {
           </NavLink>
           <p className={`text text_type_main-default text_color_inactive ${styles.menuDescription}`}>В этом разделе вы можете изменить свои персональные данные</p>
         </div>
-        <div>
-          <div className={`${styles.form}`}>
-            <EmailInput
-              onChange={handleEmailChange}
-              value={email}
-              name='email'
-              placeholder="Email"
-              isIcon={true}
-              extraClass="mb-6"
-            />
-            <Input
-              type={'text'}
-              onChange={handleLoginChange}
-              value={login}
-              name='login'
-              placeholder="Логин"
-              icon="EditIcon"
-              extraClass="mb-6"
-            />
-            <PasswordInput
-              onChange={handlePasswordChange}
-              value={password}
-              name="password"
-              extraClass="mb-6"
-            />
-          </div>
+        <form className={`${styles.form}`} onSubmit={handleSave}>
+          <EmailInput
+            onChange={handleEmailChange}
+            value={email}
+            name='email'
+            placeholder="Email"
+            isIcon={true}
+            extraClass="mb-6"
+          />
+          <Input
+            type={'text'}
+            onChange={handleLoginChange}
+            value={login}
+            name='login'
+            placeholder="Логин"
+            icon="EditIcon"
+            extraClass="mb-6"
+          />
+          <PasswordInput
+            onChange={handlePasswordChange}
+            value={password}
+            name="password"
+            extraClass="mb-6"
+          />
           {userDataChanged && (
-            <>
+            <div>
               <Button
                 onClick={handleCancel}
                 type="secondary"
@@ -117,14 +116,13 @@ function Profile() {
                 Отмена
               </Button>
               <Button
-                onClick={handleSave}
                 type="primary"
                 htmlType="submit">
                 Сохранить
               </Button>
-            </>
+            </div>
           )}
-        </div>
+        </form>
       </div>
     </div >
   );

@@ -24,13 +24,14 @@ function Register() {
     setPassword(e.target.value);
   };
 
-  function handleRegister() {
+  function handleRegister(event) {
+    event.preventDefault();
     dispatch(performRegistration({ email, login, password }));
   };
 
   return (
     <div className={`${styles.entrance}`}>
-      <div className={`${styles.form}`}>
+      <form className={`${styles.form}`} onSubmit={handleRegister}>
         <p className="text text_type_main-medium mb-6" style={{ textAlign: 'center' }}>Регистрация</p>
         <EmailInput
           onChange={handleEmailChange}
@@ -54,8 +55,7 @@ function Register() {
         />
         {registerError && <div className="text text_type_main-default text_color_error mb-6">Ошибка регистрации: {registerError}</div>}
         <Button
-          onClick={handleRegister}
-          htmlType="button"
+          htmlType="submit"
           type="primary"
           size="medium"
           extraClass={`mb-20 ${styles.button}`}>
@@ -64,7 +64,7 @@ function Register() {
         <p className="text text_type_main-default text_color_inactive mb-4" style={{ textAlign: 'center' }}>
           Уже зарегистрированы? <Link to="/login" className={styles.link}>Войти</Link>
         </p>
-      </div>
+      </form>
     </div>
   );
 };
