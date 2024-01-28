@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import styles from './IngredientDetails.module.css';
 import { useSelector } from 'react-redux';
+import Preloader from '../../Preloader/Preloader';
 
 function IngredientDetails() {
   // Получаем id маршрута из url вида http://example.com/ingredients/643d69a5c3f7b9001cfa093d
@@ -10,11 +11,7 @@ function IngredientDetails() {
   const ingredientInfo = ingredientsList.find((ingredient) => ingredient._id === id);
 
   if (!ingredientsList || ingredientsList.length === 0) {
-    return (
-      <div className={styles.centered_text}>
-        <h1>Подождите пока данные загружается с сервера...</h1>
-      </div>
-    );
+    return <Preloader />;
   }
 
   return (

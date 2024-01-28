@@ -15,7 +15,6 @@ import IngredientPage from '../pages/IngredientPage/IngredientPage';
 import { performRefreshTokens } from '../../store/actions/accountActions';
 
 function App() {
-  console.log('App');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();

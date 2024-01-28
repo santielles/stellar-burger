@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Modal from '../Modal/Modal';
 import Preloader from '../Preloader/Preloader';
 
 function ProtectedRoute({ children }) {
@@ -11,10 +10,7 @@ function ProtectedRoute({ children }) {
   const isAuthenticated = useSelector((state) => state.accountDataStore.isAuthenticated);
 
   if (isInitializing) {
-    return (
-      <Modal>
-        <Preloader />
-      </Modal>);
+    return <Preloader />;
   }
 
   if (!isAuthenticated) {

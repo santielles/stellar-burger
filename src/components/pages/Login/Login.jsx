@@ -6,7 +6,6 @@ import { Link, Navigate } from 'react-router-dom';
 import { performLogin } from '../../../store/actions/accountActions';
 
 function Login() {
-  console.log('Login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();

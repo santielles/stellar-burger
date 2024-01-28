@@ -12,7 +12,7 @@ function Profile() {
   const [userDataChanged, setUserDataChanged] = useState('');
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.accountDataStore.login);
-  console.log('Profile');
+
   useEffect(() => {
     if (Object.keys(userProfile).length !== 0) {
       setEmail(userProfile.email);

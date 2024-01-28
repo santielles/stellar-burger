@@ -126,7 +126,6 @@ function performGetUserDetails() {
         }
       });
       const responseJSON = await checkAPIResponse(response);
-      console.log('Profie: ', responseJSON);
       dispatch(getUserDetails(responseJSON));
     } catch (error) {
       console.error('Ошибка получения данных пользователя: ', error.message);
@@ -170,7 +169,6 @@ function performRefreshTokens() {
         })
       });
       const responseJSON = await checkAPIResponse(response);
-      console.log('Tokens: ', responseJSON);
       localStorage.setItem('accessToken', responseJSON.accessToken);
       localStorage.setItem('refreshToken', responseJSON.refreshToken);
       dispatch(refreshTokens(responseJSON));
