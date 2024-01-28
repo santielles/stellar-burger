@@ -6,13 +6,16 @@ import Modal from '../Modal/Modal';
 import { useDrop } from 'react-dnd';
 import { addIngredientToBurgerAction } from '../../store/actions/burgerConstructorActions';
 import { increaseCountAction, decreaseCountAction } from '../../store/actions/ingredientsListActions';
-import { sendOrder } from '../../store/actions/orderActions';
+import { resetOrderData, sendOrder } from '../../store/actions/orderActions';
 import { DraggableIngredient } from './DraggableIngredient/DraggableIngredient';
 import OrderDetails from './OrderDetails/OrderDetails';
+import { useNavigate } from 'react-router-dom';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state.accountDataStore.isAuthenticated);
   const burgerConstructorData = useSelector((store) => store.burgerConstructorStore);
   const burgerConstructorDataIDs = burgerConstructorData.map((ingredient) => ingredient._id);
   // Проверяем, есть ли в конструкторе булочка
@@ -75,12 +78,22 @@ function BurgerConstructor() {
   );
 
   function openModal() {
-    setShowModal(true);
+    setIsModalOpen(true);
   };
 
   function closeModal() {
-    setShowModal(false);
+    setIsModalOpen(false);
+    dispatch(resetOrderData());
   };
+
+  function handleOrderClick() {
+    if (!isAuthenticated) {
+      navigate('/login');
+    } else {
+      dispatch(sendOrder(burgerConstructorDataIDs));
+      openModal();
+    }
+  }
 
   return (
     <section className={`${styles.burgerConstructor} pt-25 pl-4 pr-4 pb-13`} ref={dropRef}>
@@ -94,7 +107,7 @@ function BurgerConstructor() {
             thumbnail={hasBun.image_mobile}
           />
         </div> ||
-        <h1>{'{ Перетащите булочку }'}</h1>
+        <h1 className="text_type_main-medium text_color_inactive">{'{ Перетащите булочку }'}</h1>
       }
       {
         burgerConstructorData.some((ingredient) => ingredient.type !== 'bun') && (
@@ -112,7 +125,7 @@ function BurgerConstructor() {
             })}
           </div>
         ) ||
-        <h1>{'{ Перетащите ингредиенты }'}</h1>
+        <h1 className="text_type_main-medium text_color_inactive">{'{ Перетащите ингредиенты }'}</h1>
       }
       {hasBun &&
         <div>
@@ -124,7 +137,7 @@ function BurgerConstructor() {
             thumbnail={hasBun.image_mobile}
           />
         </div> ||
-        <h1>{'{ Перетащите булочку }'}</h1>
+        <h1 className="text_type_main-medium text_color_inactive">{'{ Перетащите булочку }'}</h1>
       }
       <div className={styles.burgerConstructor__order}>
         <div className={styles.burgerConstructor__price}>
@@ -132,10 +145,7 @@ function BurgerConstructor() {
           <CurrencyIcon type="primary" />
         </div>
         <Button
-          onClick={() => {
-            dispatch(sendOrder(burgerConstructorDataIDs));
-            openModal();
-          }}
+          onClick={handleOrderClick}
           htmlType="button"
           type="primary"
           size="large"
@@ -144,7 +154,7 @@ function BurgerConstructor() {
           Оформить заказ
         </Button>
         {
-          showModal && (
+          isModalOpen && (
             <Modal onClose={closeModal}>
               <OrderDetails />
             </Modal>

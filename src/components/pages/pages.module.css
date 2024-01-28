@@ -1,0 +1,60 @@
+.entrance {
+  margin-top: calc(10vh);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: var(--background-alt);
+}
+
+.heading {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button {
+  width: auto;
+}
+
+.link {
+  color: var(--colors-interface-accent);
+  text-decoration: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  left: -60px;
+}
+
+.form {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu {
+  width: 320px;
+  margin-right: 60px;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: space-around;
+  align-self: flex-start;
+}
+
+.menuLink {
+  text-decoration: none;
+}
+
+.menuDescription {
+  margin-top: 60px;
+}

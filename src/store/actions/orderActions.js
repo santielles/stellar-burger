@@ -1,4 +1,4 @@
-import { API_SERVER_ORDER, SAVE_ORDER } from '../../utils/constants';
+import { API_SERVER_ORDER, RESET_ORDER_DATA, SAVE_ORDER } from '../../utils/constants';
 import { checkAPIResponse } from '../../utils/utils';
 
 // Async thunk action
@@ -14,15 +14,9 @@ function sendOrder(ingredientsIDs) {
         },
         body: JSON.stringify({ ingredients: ingredientsIDs })
       });
-
-      // Проверяем, успешно ли выполнен запрос
-      checkAPIResponse(response);
-
-      // Преобразуем ответ от сервера из формата JSON в JavaScript-объект
-      const responseData = await response.json();
-
+      const responseJSON = await checkAPIResponse(response);
       // Диспатчим действие для сохранения ответа сервера в стор
-      dispatch(saveOrderResponseAction(responseData));
+      dispatch(saveOrderResponseAction(responseJSON));
     } catch (error) {
       console.error('Ошибка отправки заказа: ', error);
     }
@@ -36,4 +30,10 @@ function saveOrderResponseAction(orderData) {
   };
 };
 
-export { sendOrder, saveOrderResponseAction };
+function resetOrderData() {
+  return {
+    type: RESET_ORDER_DATA
+  };
+};
+
+export { sendOrder, saveOrderResponseAction, resetOrderData };
