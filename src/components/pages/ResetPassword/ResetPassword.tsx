@@ -1,29 +1,30 @@
 import styles from '../pages.module.css';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { Button, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import { performResetPassword } from '../../../store/actions/accountActions';
 
-function ResetPassword() {
+function ResetPassword(): React.ReactElement {
   const [password, setPassword] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-  const passwordChanged = useSelector((state) => state.accountDataStore.resetPassword.passwordChanged);
-  const resetPasswordError = useSelector((state) => state.accountDataStore.resetPassword.error);
+  const passwordChanged = useSelector((state: any) => state.accountDataStore.resetPassword.passwordChanged);
+  const resetPasswordError = useSelector((state: any) => state.accountDataStore.resetPassword.error);
   const location = useLocation();
   const cameFromForgotPassword = location.state?.cameFrom === '/forgot-password';
 
-  function handlePasswordChange(e) {
+  function handlePasswordChange(e: ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value);
   };
 
-  function handleNumber(e) {
+  function handleNumber(e: ChangeEvent<HTMLInputElement>) {
     setNumber(e.target.value);
   };
 
-  function handleResetPassword(event) {
+  function handleResetPassword(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    // @ts-ignore
     dispatch(performResetPassword({ number, password }));
   };
 
@@ -49,7 +50,7 @@ function ResetPassword() {
           onChange={handleNumber}
           value={number}
           name="number"
-          icon="false"
+          icon="EditIcon"
           placeholder="Введите код из письма"
           extraClass="mb-6"
         />

@@ -1,21 +1,22 @@
 import styles from '../pages.module.css';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { performForgotPassword } from '../../../store/actions/accountActions';
 
-function ForgotPassword() {
+function ForgotPassword(): React.ReactElement {
   const [email, setEmail] = useState('');
   const dispatch = useDispatch();
-  const emailSent = useSelector((state) => state.accountDataStore.resetPassword.emailSent);
+  const emailSent = useSelector((state: any) => state.accountDataStore.resetPassword.emailSent);
 
-  function handleEmailChange(e) {
+  function handleEmailChange(e: ChangeEvent<HTMLInputElement>) {
     setEmail(e.target.value);
   };
 
-  function handleForgotPassword(event) {
+  function handleForgotPassword(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    // @ts-ignore
     dispatch(performForgotPassword(email));
   };
 

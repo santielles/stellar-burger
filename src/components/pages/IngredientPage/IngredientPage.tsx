@@ -2,7 +2,7 @@ import IngredientDetails from '../../BurgerIngredients/IngredientDetails/Ingredi
 import styles from '../pages.module.css';
 
 
-function IngredientPage() {
+function IngredientPage(): React.ReactElement {
   return (
     <div className={`${styles.entrance}`}>
       <IngredientDetails />
