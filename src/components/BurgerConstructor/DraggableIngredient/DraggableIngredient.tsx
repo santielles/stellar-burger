@@ -5,15 +5,20 @@ import { useDispatch } from 'react-redux';
 import { reorderIngredientsAction, removeIngredientAction } from '../../../store/actions/burgerConstructorActions';
 import { decreaseCountAction } from '../../../store/actions/ingredientsListActions';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { draggableIngredientType } from '../../../utils/types';
+import { TIngredient } from '../../../utils/types';
 
-function DraggableIngredient({ index, ingredient }) {
+interface DraggableIngredientProps {
+  index: number;
+  ingredient: TIngredient;
+}
+
+function DraggableIngredient({ index, ingredient }: DraggableIngredientProps): React.ReactElement {
   const dispatch = useDispatch();
-  const dragAndDropRef = useRef(null);
+  const dragAndDropRef = useRef<HTMLDivElement>(null);
   const [, drop] = useDrop({
     accept: 'ingredientReorder',
     // Функция, вызываемая при наведении перетаскиваемого игредиента на другой ингредиент
-    hover(draggedIngredient) {
+    hover(draggedIngredient: TIngredient) {
       // Если рефка пустая, завершаем функцию
       if (!dragAndDropRef.current) return;
       // Индекс перетаскиваемого игредиента
@@ -55,7 +60,5 @@ function DraggableIngredient({ index, ingredient }) {
     </div>
   );
 }
-
-DraggableIngredient.propTypes = draggableIngredientType;
 
 export { DraggableIngredient };

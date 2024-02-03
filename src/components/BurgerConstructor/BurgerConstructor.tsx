@@ -10,13 +10,14 @@ import { resetOrderData, sendOrder } from '../../store/actions/orderActions';
 import { DraggableIngredient } from './DraggableIngredient/DraggableIngredient';
 import OrderDetails from './OrderDetails/OrderDetails';
 import { useNavigate } from 'react-router-dom';
+import { TIngredient } from '../../utils/types';
 
-function BurgerConstructor() {
+function BurgerConstructor(): React.ReactElement {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  const isAuthenticated = useSelector((state) => state.accountDataStore.isAuthenticated);
-  const burgerConstructorData = useSelector((store) => store.burgerConstructorStore);
+  const isAuthenticated = useSelector((state: any) => state.accountDataStore.isAuthenticated);
+  const burgerConstructorData: TIngredient[] = useSelector((store: any) => store.burgerConstructorStore);
   const burgerConstructorDataIDs = burgerConstructorData.map((ingredient) => ingredient._id);
   // Проверяем, есть ли в конструкторе булочка
   const hasBun = burgerConstructorData.find((ingredient) => ingredient.type === 'bun');
@@ -27,7 +28,7 @@ function BurgerConstructor() {
 
   // Расчет общей стоимости заказа только при изменении burgerConstructorData
   const totalBurgerPrice = useMemo(() => {
-    return burgerConstructorData.reduce((total, ingredient) => {
+    return burgerConstructorData.reduce((total: number, ingredient: TIngredient) => {
       // Для булочек цена удваивается
       if (ingredient.type === 'bun') {
         return total + (ingredient.price * 2);
@@ -48,7 +49,7 @@ function BurgerConstructor() {
       // которую мы передали чтобы перетащить
       //
       // Функция drop будет вызвана, когда элемент типа 'ingredient' будет отпущен над этим компонентом
-      drop(draggableIngredientInfo) {
+      drop(draggableIngredientInfo: TIngredient) {
         // Вспомогательная функция для добавления ингредиента в конструктор бургера
         // и увеличения счетчика этого ингредиента.
         function addIngredient() {
@@ -90,6 +91,7 @@ function BurgerConstructor() {
     if (!isAuthenticated) {
       navigate('/login');
     } else {
+      //@ts-ignore
       dispatch(sendOrder(burgerConstructorDataIDs));
       openModal();
     }

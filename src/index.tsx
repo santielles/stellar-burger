@@ -7,7 +7,7 @@ import App from './components/App/App';
 // GitHub Pages не умеет работать с роутером, поэтому используем HashRouter вместо BrowserRouter, хоть это и не рекомендуется
 import { HashRouter } from 'react-router-dom';
 
-const root = createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <Provider store={store}>

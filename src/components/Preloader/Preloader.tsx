@@ -1,9 +1,9 @@
 import { createPortal } from 'react-dom';
 import styles from './Preloader.module.css';
 
-const preloaderElement = document.getElementById('preloader');
+const preloaderElement = document.getElementById('preloader') as HTMLElement;
 
-function Preloader() {
+function Preloader(): React.ReactElement {
   return createPortal(
     (
       <div className={styles.preloader}>

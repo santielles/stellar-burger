@@ -1,9 +1,14 @@
 import styles from './Ingredient.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag } from 'react-dnd';
-import { ingredientType } from '../../../utils/types';
+import { TIngredient } from '../../../utils/types';
 
-function Ingredient({ ingredientInfo, onClick }) {
+interface IngredientProps {
+  ingredientInfo: TIngredient;
+  onClick: () => void;
+}
+
+function Ingredient({ ingredientInfo, onClick }: IngredientProps): React.ReactElement {
   // dragRef это рефка (ref={dragRef}) которую мы устанавливаем на div, который будет перетаскиваться
   // useDrag это хук, который принимаем в себя обязательное поле type, в нем название 'ingredient' как идентификатор
   // такой же type ставится в место куда будем перетаскивать объекты, устанавливая связь.
@@ -32,9 +37,5 @@ function Ingredient({ ingredientInfo, onClick }) {
     </>
   );
 }
-
-Ingredient.propTypes = {
-  ingredientInfo: ingredientType.isRequired
-};
 
 export { Ingredient };

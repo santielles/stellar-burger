@@ -1,12 +1,16 @@
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Preloader from '../Preloader/Preloader';
 
-function ProtectedRoute({ children, redirectAuthenticated = false }) {
+interface ProtectedRouteProps {
+  children: JSX.Element;
+  redirectAuthenticated?: boolean;
+}
+
+function ProtectedRoute({ children, redirectAuthenticated = false }: ProtectedRouteProps): React.ReactElement {
   const location = useLocation();
-  const isInitializing = useSelector((state) => state.accountDataStore.isInitializing);
-  const isAuthenticated = useSelector((state) => state.accountDataStore.isAuthenticated);
+  const isInitializing = useSelector((state: any) => state.accountDataStore.isInitializing);
+  const isAuthenticated = useSelector((state: any) => state.accountDataStore.isAuthenticated);
 
   // Показываем прелоадер, если приложение все еще инициализируется
   if (isInitializing) {
@@ -37,11 +41,6 @@ function ProtectedRoute({ children, redirectAuthenticated = false }) {
   }
   // Если пользователь аутентифицирован, отображаем запрашиваемый компонент
   return children;
-};
-
-ProtectedRoute.propTypes = {
-  children: PropTypes.node.isRequired,
-  redirectAuthenticated: PropTypes.bool
 };
 
 export default ProtectedRoute;
