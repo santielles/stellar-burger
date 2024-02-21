@@ -91,7 +91,7 @@ function BurgerConstructor(): React.ReactElement {
     if (!isAuthenticated) {
       navigate('/login');
     } else {
-      //@ts-ignore
+      // @ts-ignore
       dispatch(sendOrder(burgerConstructorDataIDs));
       openModal();
     }

@@ -38,7 +38,7 @@ function ResetPassword(): React.ReactElement {
         <Navigate to="/login" replace={true} />
       )}
       <form className={`${styles.form}`} onSubmit={handleResetPassword}>
-        <p className="text text_type_main-medium mb-6" style={{ textAlign: 'center' }}>Восстановление пароля</p>
+        <p className="text text_type_main-medium mb-6">Восстановление пароля</p>
         <PasswordInput
           onChange={handlePasswordChange}
           value={password}
@@ -62,7 +62,7 @@ function ResetPassword(): React.ReactElement {
           extraClass={`mb-20 ${styles.button}`}>
           Сохранить
         </Button>
-        <p className="text text_type_main-default text_color_inactive mb-4" style={{ textAlign: 'center' }}>Вспомнили пароль? <a href="/register" className={styles.link}>Войти</a></p>
+        <p className="text text_type_main-default text_color_inactive mb-4">Вспомнили пароль? <a href="/register" className={styles.link}>Войти</a></p>
       </form>
     </div>
   );

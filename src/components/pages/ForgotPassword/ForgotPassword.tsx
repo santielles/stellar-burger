@@ -30,7 +30,7 @@ function ForgotPassword(): React.ReactElement {
         />
       )}
       <form className={`${styles.form}`} onSubmit={handleForgotPassword}>
-        <p className="text text_type_main-medium mb-6" style={{ textAlign: 'center' }}>Восстановление пароля</p>
+        <p className="text text_type_main-medium mb-6">Восстановление пароля</p>
         <EmailInput
           onChange={handleEmailChange}
           value={email}
@@ -45,7 +45,7 @@ function ForgotPassword(): React.ReactElement {
           extraClass={`mb-20 ${styles.button}`}>
           Восстановить
         </Button>
-        <p className="text text_type_main-default text_color_inactive mb-4" style={{ textAlign: 'center' }}>
+        <p className="text text_type_main-default text_color_inactive mb-4">
           Вспомнили пароль? <Link to="/login" className={styles.link}>Войти</Link>
         </p>
       </form>

@@ -33,7 +33,7 @@ function Register(): React.ReactElement {
   return (
     <div className={`${styles.entrance}`}>
       <form className={`${styles.form}`} onSubmit={handleRegister}>
-        <p className="text text_type_main-medium mb-6" style={{ textAlign: 'center' }}>Регистрация</p>
+        <p className="text text_type_main-medium mb-6">Регистрация</p>
         <EmailInput
           onChange={handleEmailChange}
           value={email}
@@ -62,7 +62,7 @@ function Register(): React.ReactElement {
           extraClass={`mb-20 ${styles.button}`}>
           Зарегистрироваться
         </Button>
-        <p className="text text_type_main-default text_color_inactive mb-4" style={{ textAlign: 'center' }}>
+        <p className="text text_type_main-default text_color_inactive mb-4">
           Уже зарегистрированы? <Link to="/login" className={styles.link}>Войти</Link>
         </p>
       </form>

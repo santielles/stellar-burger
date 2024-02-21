@@ -28,7 +28,7 @@ function Login(): React.ReactElement {
   return (
     <div className={`${styles.entrance}`}>
       <form className={`${styles.form}`} onSubmit={handleLogin}>
-        <p className="text text_type_main-medium mb-6" style={{ textAlign: 'center' }}>Вход</p>
+        <p className="text text_type_main-medium mb-6">Вход</p>
         <EmailInput
           onChange={handleEmailChange}
           value={email}
@@ -50,10 +50,10 @@ function Login(): React.ReactElement {
           extraClass={`mb-20 ${styles.button}`}>
           Войти
         </Button>
-        <p className="text text_type_main-default text_color_inactive mb-4" style={{ textAlign: 'center' }}>
+        <p className="text text_type_main-default text_color_inactive mb-4">
           Вы - новый пользователь? <Link to="/register" className={styles.link}>Зарегистрироваться</Link>
         </p>
-        <p className="text text_type_main-default text_color_inactive" style={{ textAlign: 'center' }}>
+        <p className="text text_type_main-default text_color_inactive">
           Забыли пароль? <Link to="/forgot-password" className={styles.link}>Восстановить пароль</Link>
         </p>
       </form>
