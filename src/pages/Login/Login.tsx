@@ -3,7 +3,7 @@ import { Button, PasswordInput, EmailInput } from '@ya.praktikum/react-developer
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { performLogin } from '../../../store/actions/accountActions';
+import { performLogin } from '../../store/actions/accountActions';
 
 function Login(): React.ReactElement {
   const [email, setEmail] = useState('');

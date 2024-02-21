@@ -2,7 +2,7 @@ import styles from '../pages.module.css';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { Button, PasswordInput, EmailInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
-import { performRegistration } from '../../../store/actions/accountActions';
+import { performRegistration } from '../../store/actions/accountActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 function Register(): React.ReactElement {

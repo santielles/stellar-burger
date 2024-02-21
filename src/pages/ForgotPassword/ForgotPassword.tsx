@@ -3,7 +3,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { performForgotPassword } from '../../../store/actions/accountActions';
+import { performForgotPassword } from '../../store/actions/accountActions';
 
 function ForgotPassword(): React.ReactElement {
   const [email, setEmail] = useState('');

@@ -3,7 +3,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { Button, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
-import { performResetPassword } from '../../../store/actions/accountActions';
+import { performResetPassword } from '../../store/actions/accountActions';
 
 function ResetPassword(): React.ReactElement {
   const [password, setPassword] = useState('');

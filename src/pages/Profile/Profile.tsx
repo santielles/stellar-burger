@@ -1,7 +1,7 @@
 import styles from '../pages.module.css';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { PasswordInput, EmailInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { performGetUserDetails, performLogout, performSetUserDetails } from '../../../store/actions/accountActions';
+import { performGetUserDetails, performLogout, performSetUserDetails } from '../../store/actions/accountActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
