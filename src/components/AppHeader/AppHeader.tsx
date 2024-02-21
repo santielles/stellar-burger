@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './AppHeader.module.css';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function AppHeader() {
+function AppHeader(): React.ReactElement {
   return (
     <header className={styles.header}>
       <div className={styles.navigation_container}>

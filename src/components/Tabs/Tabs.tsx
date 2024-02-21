@@ -1,8 +1,12 @@
 import styles from './Tabs.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { tabsType } from '../../utils/types';
 
-function Tabs({ activeTab, setActiveTab }) {
+interface TabsProps {
+  activeTab: string;
+  setActiveTab: (value: string) => void;
+}
+
+function Tabs({ activeTab, setActiveTab }: TabsProps): React.ReactElement {
   return (
     <div className={styles.tabs}>
       <Tab value="buns" active={activeTab === 'buns'} onClick={setActiveTab}>
@@ -17,7 +21,5 @@ function Tabs({ activeTab, setActiveTab }) {
     </div>
   );
 }
-
-Tabs.propTypes = tabsType;
 
 export { Tabs };

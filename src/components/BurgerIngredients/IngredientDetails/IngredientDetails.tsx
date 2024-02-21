@@ -2,15 +2,16 @@ import { useParams } from 'react-router-dom';
 import styles from './IngredientDetails.module.css';
 import { useSelector } from 'react-redux';
 import Preloader from '../../Preloader/Preloader';
+import { TIngredient } from '../../../utils/types';
 
-function IngredientDetails() {
+function IngredientDetails(): React.ReactElement {
   // Получаем id маршрута из url вида http://example.com/ingredients/643d69a5c3f7b9001cfa093d
   // <Route path="/ingredients/:id" element={<IngredientDetails />} />
   const { id } = useParams();
-  const ingredientsList = useSelector((store) => store.ingredientsListStore);
+  const ingredientsList: TIngredient[] = useSelector((store: any) => store.ingredientsListStore);
   const ingredientInfo = ingredientsList.find((ingredient) => ingredient._id === id);
 
-  if (!ingredientsList || ingredientsList.length === 0) {
+  if (!ingredientsList || ingredientsList.length === 0 || !ingredientInfo) {
     return <Preloader />;
   }
 

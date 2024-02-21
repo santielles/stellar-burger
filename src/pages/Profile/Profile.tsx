@@ -1,17 +1,17 @@
 import styles from '../pages.module.css';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { PasswordInput, EmailInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { performGetUserDetails, performLogout, performSetUserDetails } from '../../../store/actions/accountActions';
+import { performGetUserDetails, performLogout, performSetUserDetails } from '../../store/actions/accountActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-function Profile() {
+function Profile(): React.ReactElement {
   const [email, setEmail] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const [userDataChanged, setUserDataChanged] = useState('');
+  const [userDataChanged, setUserDataChanged] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const userProfile = useSelector((state) => state.accountDataStore.login);
+  const userProfile = useSelector((state: any) => state.accountDataStore.login);
 
   useEffect(() => {
     if (Object.keys(userProfile).length !== 0) {
@@ -21,25 +21,27 @@ function Profile() {
   }, [userProfile]);
 
   useEffect(() => {
+    // @ts-ignore
     dispatch(performGetUserDetails());
   }, []);
 
-  function handleEmailChange(e) {
+  function handleEmailChange(e: ChangeEvent<HTMLInputElement>) {
     setEmail(e.target.value);
     setUserDataChanged(true);
   };
 
-  function handleLoginChange(e) {
+  function handleLoginChange(e: ChangeEvent<HTMLInputElement>) {
     setLogin(e.target.value);
     setUserDataChanged(true);
   };
 
-  function handlePasswordChange(e) {
+  function handlePasswordChange(e: ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value);
     setUserDataChanged(true);
   };
 
   function handleLogout() {
+    // @ts-ignore
     dispatch(performLogout());
   };
 
@@ -52,8 +54,9 @@ function Profile() {
     setUserDataChanged(false);
   }
 
-  function handleSave(event) {
+  function handleSave(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    // @ts-ignore
     dispatch(performSetUserDetails({ email, login }));
     setUserDataChanged(false);
   }
@@ -75,12 +78,12 @@ function Profile() {
           <p className={`text text_type_main-medium text_color_inactive ${styles.menuLink}`}>
             История заказов
           </p>
-          <NavLink
+          <div
             className={`text text_type_main-medium text_color_inactive ${styles.menuLink}`}
             onClick={handleLogout}
           >
             Выход
-          </NavLink>
+          </div>
           <p className={`text text_type_main-default text_color_inactive ${styles.menuDescription}`}>В этом разделе вы можете изменить свои персональные данные</p>
         </div>
         <form className={`${styles.form}`} onSubmit={handleSave}>

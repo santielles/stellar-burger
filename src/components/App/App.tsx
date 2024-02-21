@@ -2,19 +2,19 @@ import styles from './App.module.css';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../AppHeader/AppHeader';
 import { MainSection } from '../MainSection/MainSection';
-import Login from '../pages/Login/Login';
-import Register from '../pages/Register/Register';
-import ForgotPassword from '../pages/ForgotPassword/ForgotPassword';
-import ResetPassword from '../pages/ResetPassword/ResetPassword';
+import Login from '../../pages/Login/Login';
+import Register from '../../pages/Register/Register';
+import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
+import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import Profile from '../pages/Profile/Profile';
+import Profile from '../../pages/Profile/Profile';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchIngredients } from '../../store/actions/ingredientsListActions';
-import IngredientPage from '../pages/IngredientPage/IngredientPage';
+import IngredientPage from '../../pages/IngredientPage/IngredientPage';
 import { performRefreshTokens } from '../../store/actions/accountActions';
 
-function App() {
+function App(): React.ReactElement {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,7 +26,9 @@ function App() {
     if (location.state) {
       navigate(location.pathname, { replace: true });
     }
+    // @ts-ignore
     dispatch(fetchIngredients(true));
+    // @ts-ignore
     dispatch(performRefreshTokens());
   }, [dispatch]);
 

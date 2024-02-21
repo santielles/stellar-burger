@@ -2,8 +2,8 @@ import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-component
 import { useSelector } from 'react-redux';
 import Preloader from '../../Preloader/Preloader';
 
-function OrderDetails() {
-  const orderData = useSelector((store) => store.orderDataStore);
+function OrderDetails(): React.ReactElement {
+  const orderData = useSelector((store: any) => store.orderDataStore);
 
   // Если данные заказа ещё не получены с сервера
   if (Object.keys(orderData).length === 0) {

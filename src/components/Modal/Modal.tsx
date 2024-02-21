@@ -3,14 +3,18 @@ import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Overlay from '../Overlay/Overlay';
 import { useEffect } from 'react';
-import { modalType } from '../../utils/types';
 
-const modalElement = document.getElementById('modal');
+const modalElement = document.getElementById('modal') as HTMLElement;
 
-function Modal({ children, onClose }) {
+interface ModalProps {
+  children: React.ReactNode;
+  onClose: () => void;
+}
+
+function Modal({ children, onClose }: ModalProps): React.ReactElement {
   useEffect(() => {
     // задаём функцию, котрая при нажатии на "Escape" будет закрывать модальное окно
-    function onEsc(evt) {
+    function onEsc(evt: KeyboardEvent) {
       // если нажата клавиша "Escape"
       if (evt.code === 'Escape') {
         // закрыть модальное окно
@@ -40,7 +44,5 @@ function Modal({ children, onClose }) {
     ), modalElement
   );
 }
-
-Modal.propTypes = modalType;
 
 export default Modal;

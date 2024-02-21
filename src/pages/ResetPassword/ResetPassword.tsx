@@ -1,29 +1,30 @@
 import styles from '../pages.module.css';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { Button, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
-import { performResetPassword } from '../../../store/actions/accountActions';
+import { performResetPassword } from '../../store/actions/accountActions';
 
-function ResetPassword() {
+function ResetPassword(): React.ReactElement {
   const [password, setPassword] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-  const passwordChanged = useSelector((state) => state.accountDataStore.resetPassword.passwordChanged);
-  const resetPasswordError = useSelector((state) => state.accountDataStore.resetPassword.error);
+  const passwordChanged = useSelector((state: any) => state.accountDataStore.resetPassword.passwordChanged);
+  const resetPasswordError = useSelector((state: any) => state.accountDataStore.resetPassword.error);
   const location = useLocation();
   const cameFromForgotPassword = location.state?.cameFrom === '/forgot-password';
 
-  function handlePasswordChange(e) {
+  function handlePasswordChange(e: ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value);
   };
 
-  function handleNumber(e) {
+  function handleNumber(e: ChangeEvent<HTMLInputElement>) {
     setNumber(e.target.value);
   };
 
-  function handleResetPassword(event) {
+  function handleResetPassword(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    // @ts-ignore
     dispatch(performResetPassword({ number, password }));
   };
 
@@ -37,7 +38,7 @@ function ResetPassword() {
         <Navigate to="/login" replace={true} />
       )}
       <form className={`${styles.form}`} onSubmit={handleResetPassword}>
-        <p className="text text_type_main-medium mb-6" style={{ textAlign: 'center' }}>Восстановление пароля</p>
+        <p className="text text_type_main-medium mb-6">Восстановление пароля</p>
         <PasswordInput
           onChange={handlePasswordChange}
           value={password}
@@ -49,7 +50,7 @@ function ResetPassword() {
           onChange={handleNumber}
           value={number}
           name="number"
-          icon="false"
+          icon="EditIcon"
           placeholder="Введите код из письма"
           extraClass="mb-6"
         />
@@ -61,7 +62,7 @@ function ResetPassword() {
           extraClass={`mb-20 ${styles.button}`}>
           Сохранить
         </Button>
-        <p className="text text_type_main-default text_color_inactive mb-4" style={{ textAlign: 'center' }}>Вспомнили пароль? <a href="/register" className={styles.link}>Войти</a></p>
+        <p className="text text_type_main-default text_color_inactive mb-4">Вспомнили пароль? <a href="/register" className={styles.link}>Войти</a></p>
       </form>
     </div>
   );

@@ -1,4 +1,4 @@
-async function checkAPIResponse(response) {
+async function checkAPIResponse(response: Response): Promise<any> {
   // Преобразуем ответ от сервера из формата JSON в JavaScript-объект
   const responseData = await response.json();
   // Проверяем, успешно ли выполнен запрос

@@ -1,8 +1,8 @@
-import IngredientDetails from '../../BurgerIngredients/IngredientDetails/IngredientDetails';
+import IngredientDetails from '../../components/BurgerIngredients/IngredientDetails/IngredientDetails';
 import styles from '../pages.module.css';
 
 
-function IngredientPage() {
+function IngredientPage(): React.ReactElement {
   return (
     <div className={`${styles.entrance}`}>
       <IngredientDetails />

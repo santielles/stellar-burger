@@ -20,7 +20,12 @@
     "redux-thunk": "^3.1.0",
     "react-intersection-observer": "^9.5.3",
     "gh-pages": "^6.0.0",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "typescript": "^4.9.5",
+    "@types/react": "^18.2.52",
+    "@types/react-dom": "^18.2.18",
+    "@types/react-redux": "^7.1.33",
+    "@types/react-router-dom": "^5.3.3"
   },
   "scripts": {
     "start": "react-scripts start",

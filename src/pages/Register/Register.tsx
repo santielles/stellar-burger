@@ -1,38 +1,39 @@
 import styles from '../pages.module.css';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { Button, PasswordInput, EmailInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
-import { performRegistration } from '../../../store/actions/accountActions';
+import { performRegistration } from '../../store/actions/accountActions';
 import { useDispatch, useSelector } from 'react-redux';
 
-function Register() {
+function Register(): React.ReactElement {
   const [email, setEmail] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const registerError = useSelector((state) => state.accountDataStore.registerError);
+  const registerError = useSelector((state: any) => state.accountDataStore.registerError);
 
-  function handleEmailChange(e) {
+  function handleEmailChange(e: ChangeEvent<HTMLInputElement>) {
     setEmail(e.target.value);
   };
 
-  function handleLoginChange(e) {
+  function handleLoginChange(e: ChangeEvent<HTMLInputElement>) {
     setLogin(e.target.value);
   };
 
-  function handlePasswordChange(e) {
+  function handlePasswordChange(e: ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value);
   };
 
-  function handleRegister(event) {
+  function handleRegister(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    // @ts-ignore
     dispatch(performRegistration({ email, login, password }));
   };
 
   return (
     <div className={`${styles.entrance}`}>
       <form className={`${styles.form}`} onSubmit={handleRegister}>
-        <p className="text text_type_main-medium mb-6" style={{ textAlign: 'center' }}>Регистрация</p>
+        <p className="text text_type_main-medium mb-6">Регистрация</p>
         <EmailInput
           onChange={handleEmailChange}
           value={email}
@@ -61,7 +62,7 @@ function Register() {
           extraClass={`mb-20 ${styles.button}`}>
           Зарегистрироваться
         </Button>
-        <p className="text text_type_main-default text_color_inactive mb-4" style={{ textAlign: 'center' }}>
+        <p className="text text_type_main-default text_color_inactive mb-4">
           Уже зарегистрированы? <Link to="/login" className={styles.link}>Войти</Link>
         </p>
       </form>

@@ -6,9 +6,9 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import Preloader from '../Preloader/Preloader';
 
-function MainSection() {
+function MainSection(): React.ReactElement {
   // когда будет несколько редьюсеров, к нужному стору надо будет обращаться по имени
-  const ingredientsList = useSelector((store) => store.ingredientsListStore);
+  const ingredientsList = useSelector((store: any) => store.ingredientsListStore);
 
   // Для того чтобы наши компоненты  AppHeader и MainSection не рендерились раньше чем будут загружены данные сервера
   // нам нужно добавить условие.
